@@ -1,0 +1,72 @@
+{
+  "name": "react-component-combinators",
+  "version": "1.0.0",
+  "type": "module",
+  "author": "Ran Eilam <ran@haag59.com> (https://middle-ages.github.io/)",
+  "homepage": "https://github.com/middle-ages/react-component-combinators",
+  "bugs": "https://github.com/middle-ages/react-component-combinators/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/middle-ages/react-component-combinators"
+  },
+  "license": "ISC",
+  "keywords": [
+    "react",
+    "effect-ts",
+    "combinators"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "dev/clean",
+    "lint": "eslint --config config/eslint.config.js src tests",
+    "lint:fix": "eslint --config config/eslint.config.js --fix src tests",
+    "typecheck": "tsc -b",
+    "test": "vitest -c vitest.config.ts --reporter=verbose",
+    "test:run": "vitest -c vitest.config.ts run",
+    "coverage": "vitest -c vitest.config.ts run --reporter=verbose --coverage",
+    "circular": "depcruise src -c config/dependency-cruiser.cjs",
+    "graph:dependencies": "dev/graph-dependencies",
+    "ls:deps": "pnpm ls --prod",
+    "ls:deps:dev": "pnpm ls --dev"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "dependency-cruiser": "^16.9.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.23.0",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "bracketSpacing": false,
+    "bracketSameLine": true,
+    "endOfLine": "lf"
+  },
+  "packageManager": "pnpm@9.2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "eslint.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.run": "onSave",
+  "markdownlint.run": "onSave",
+  "eslint.options": {
+    "overrideConfigFile": "config/eslint.config.js"
+  },
+  "eslint.workingDirectories": [
+    {
+      "directory": "."
+    }
+  ],
+  "eslint.useESLintClass": true,
+  "files.autoSave": "onFocusChange",
+  "editor.codeActions.triggerOnFocusChange": true,
+  "editor.formatOnSave": true,
+  "notebook.formatOnSave.enabled": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": ["Combinators", "depcruise", "Eeuo", "serviceworker"],
+  "eslint.probe": [
+    "typescript",
+    "typescriptreact",
+    "html",
+    "mdx",
+    "markdown",
+    "json"
+  ]
+}
