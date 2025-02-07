@@ -18,7 +18,19 @@
   "editor.formatOnSave": true,
   "notebook.formatOnSave.enabled": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["Combinators", "depcruise", "Eeuo", "serviceworker"],
+  "cSpell.words": [
+    "autodocs",
+    "combinators",
+    "Combinators",
+    "compinators",
+    "depcruise",
+    "Eeuo",
+    "Eilam",
+    "serviceworker",
+    "storysource",
+    "Symbola",
+    "tailwindcss"
+  ],
   "eslint.probe": [
     "typescript",
     "typescriptreact",
@@ -26,5 +38,9 @@
     "mdx",
     "markdown",
     "json"
-  ]
+  ],
+  "typescript.suggest.autoImports": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "accessibility.verbosity.inlineCompletions": false,
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }

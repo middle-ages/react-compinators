@@ -1,0 +1,22 @@
+{
+  "extends": ["./tsconfig.browser.json"],
+  "compilerOptions": {
+    "allowArbitraryExtensions": true,
+    "paths": {
+      "react-compinators": ["../src/index.ts"],
+      "#test": ["../src/test.ts"],
+      "#storybook": ["../src/storybook.ts"]
+    }
+  },
+  "include": [
+    "../**/*.stories.ts",
+    "../**/*.stories.tsx",
+    "../src/storybook/**/*.ts",
+    "../src/storybook/**/*.tsx",
+    "../.storybook-webpack/preview.ts",
+    "../.storybook-vite/preview.ts"
+  ],
+  "mdx": {
+    "checkMdx": true
+  }
+}

@@ -1,32 +1,17 @@
 {
+  "extends": ["./tsconfig.base.json"],
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
     "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "allowJs": true,
-    "checkJs": true,
-
-    "rootDir": "..",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    "strict": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "noUncheckedSideEffectImports": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "types": ["node"]
   },
-  "include": ["../vite.config.ts", "../vitest.config.ts", "eslint.config.js"]
+  "include": [
+    "vite.config.ts",
+    "vite.storybook.config.ts",
+    "vitest.config.ts",
+    "eslint.config.js",
+    "dependency-cruiser.cjs",
+    "../.storybook-webpack/main.ts",
+    "../.storybook-vite/main.ts"
+  ]
 }

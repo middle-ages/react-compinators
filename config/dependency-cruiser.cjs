@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-undef
+/* eslint-disable */
 module.exports = {
   forbidden: [
     {

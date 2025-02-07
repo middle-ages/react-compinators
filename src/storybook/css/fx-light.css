@@ -1,0 +1,23 @@
+html[data-theme='light'] {
+  /** Backgrounds */
+  --color-bg: #eeeef0;
+  /** Link */
+  --color-href: lab(5% 30 -70);
+  --color-href-hover: lab(20% 50 -90);
+  --color-href-active: lab(30% 80 140);
+  --color-href-visited: lab(10% 50 -50);
+  --color-href-visited-hover: lab(35% 70 -70);
+  /** Text */
+  --color-ink: lab(0% 0 0);
+  --color-head: lab(20% 5 -25);
+  /** 3D Borders */
+  --color-3d-ink: #444;
+  --color-3d-ink-hover: #222;
+  --color-3d-ink-active: #000;
+  --color-3d-bg: #cdcdd2;
+  --color-3d-bg-active: #babac1;
+  --color-3d-bg-hover: #dadadf;
+  --color-3d-border: #cecece;
+  --color-3d-bottom: #bbb;
+  --color-3d-top: #eee;
+}

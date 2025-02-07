@@ -1,0 +1,72 @@
+html {
+  color: var(--color-ink);
+  background: var(--color-bg);
+}
+button {
+  line-height: var(--tall-line-height);
+  color: var(--color-3d-ink);
+  background: var(--color-3d-bg);
+  border-radius: var(--pad-3);
+  border-color: var(--color-3d-border);
+  border-bottom-color: var(--color-3d-bottom);
+  border-top-color: var(--color-3d-top);
+  text-shadow: 0px 1px 0.7px #fffa;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--color-3d-ink-hover);
+    background: var(--color-3d-bg-hover);
+  }
+
+  &:active {
+    color: var(--color-3d-ink-active);
+    background: var(--color-3d-bg-active);
+    border-top-color: var(--color-3d-bottom);
+    border-bottom-color: var(--color-3d-top);
+    text-shadow: 0px 1px 0.7px #fffc;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+h1,
+h4 {
+  color: var(--color-head);
+  font-weight: 450;
+}
+
+h1,
+h1 * {
+  font-size: var(--h1-font-size) !important;
+  line-height: var(--h1-line-height) !important;
+  text-align: center;
+}
+
+h2,
+h2 * {
+  font-size: var(--h2-font-size) !important;
+  line-height: var(--h2-line-height) !important;
+}
+
+h3,
+h3 * {
+  font-size: var(--h3-font-size) !important;
+  line-height: var(--h3-line-height) !important;
+}
+
+h4,
+h3 * {
+  font-size: var(--h4-font-size) !important;
+  line-height: var(--h4-line-height) !important;
+}
+
+fieldset {
+  max-width: 20rem;
+  border-radius: var(--pad-4);
+}

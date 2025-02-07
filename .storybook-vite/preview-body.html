@@ -1,0 +1,27 @@
+<script>
+  const media = () => window.matchMedia('(prefers-color-scheme: dark)')
+
+  const matchMedia = () => (media().matches ? 'dark' : 'light')
+
+  const setTheme = theme => {
+    document.documentElement.style.colorScheme = theme
+    const html = document.querySelector('html')
+    if (html === null) return
+    html.dataset['theme'] = theme
+  }
+
+  const getTheme = () => {
+    return document.querySelector('html')?.dataset['theme'] === 'light'
+      ? 'light'
+      : 'dark'
+  }
+
+  const onThemeChange = handler => {
+    media().addEventListener('change', () => {
+      handler(getTheme())
+    })
+  }
+
+  setTheme(matchMedia())
+  onThemeChange(setTheme)
+</script>

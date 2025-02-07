@@ -2,7 +2,6 @@
 import eslint from '@eslint/js'
 import allPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import react from 'eslint-plugin-react'
-// @ts-expect-error
 import reactHooks from 'eslint-plugin-react-hooks'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
@@ -22,18 +21,15 @@ export default tseslint.config(
   tseslint.configs.strictTypeChecked,
   prettierRecommended,
 
-  // @ts-expect-error
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
 
   {
     languageOptions: {
-      // @ts-expect-error
       ...react.configs.flat.recommended.languageOptions,
       parserOptions: {
         projectService: true,
         ecmaVersion: 'latest',
-        // @ts-expect-error
         tsconfigRootDir: import.meta.dirname + '/..',
         ecmaFeatures: {
           jsx: true,

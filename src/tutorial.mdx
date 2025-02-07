@@ -1,0 +1,161 @@
+import {assume} from 'react-compinators'
+
+<Unstyled>
+
+# `react-compinators` Tutorial
+
+A simple label component we will use as a running example:
+```tsx
+export const COLORS = ['red', 'yellow', 'green'] as const
+export type Color = (typeof COLORS)[number]
+
+interface LabelProps { text: string; color: Color }
+
+const Label = ({text, color: background}: LabelProps) => (
+  <div style={{background}}>{text}</div>
+)
+
+<Label text="Green"  color="green" />
+<Label text="Yellow" color="yellow" />
+<Label text="Red"    color="red" />
+```
+
+export const COLORS = ['red', 'yellow', 'green']
+export const Label = ({text, color: background}) => (
+  <div style={{background, textAlign: 'center'}}>{text}</div>
+)
+
+<fieldset>
+<legend>Three Labels</legend>
+<Label text="Green"  color="green" />
+<Label text="Yellow" color="yellow" />
+<Label text="Red"    color="red" />
+</fieldset>
+
+## Props
+
+### 1. `assume`
+
+To partially apply a subset of the `<Label>` props, we can use `assume`(_base_)(
+partial props ):
+```tsx
+import {assume} from 'react-compinators'
+
+const YellowLabel = assume(Label)({color: 'yellow'})
+
+<YellowLabel text="Hello World!" />
+
+console.log(YellowLabel.displayName) // assumeColor(Label)
+```
+
+export const YellowLabel1 = assume(Label)({color: 'yellow'})
+
+<fieldset>
+<legend>assumeColor(Label)</legend>
+<YellowLabel1 text="Hello World!" />
+</fieldset>
+
+#### `displayName`
+
+By default, the `displayName` shown in React Dev Tools will be
+`assumeColor(Label)`, because `Label` is the `displayName` of the base component
+and we are partially applying a single prop called `color`.
+
+The combinators in this library will let you set an optional `displayName` to
+aid debugging, but having none, will try to compute a reasonable value from
+their arguments.
+
+To override the _suffix_ we can use the second, optional argument to `assume`:
+```tsx
+import {assume} from 'react-compinators'
+
+const YellowLabel = assume(Label)({color: 'yellow'}, 'Yellow')
+//                                                    ^^^^^^
+//                  Optional argument for displayName wrapper 
+
+<YellowLabel text="Hello World!" />
+
+console.log(YellowLabel.displayName) // Yellow(Label)
+```
+
+<fieldset>
+<legend>Yellow(Label)</legend>
+<YellowLabel1 text="Hello World!" />
+</fieldset>
+
+### 2. `unionVariants`
+
+What if we wanted to partially apply _three_ variants of the button, one for
+each color?
+```tsx
+import {assume} from 'react-compinators'
+
+const GreenLabel  = assume(Label)({color: 'green'})
+const YellowLabel = assume(Label)({color: 'yellow'})
+const RedLabel    = assume(Label)({color: 'red'})
+
+<RedLabel    text="Red"/>
+<YellowLabel text="Yellow"/>
+<GreenLabel  text="Green"/>
+```
+
+export const GreenLabel2 = assume(Label)({color: 'green'})
+export const YellowLabel2 = assume(Label)({color: 'yellow'})
+export const RedLabel2 = assume(Label)({color: 'red'})
+
+<fieldset>
+<legend>Calling <code>assume</code> <i>three</i> times</legend>
+<GreenLabel2  text="Green"/>
+<YellowLabel2 text="Yellow"/>
+<RedLabel2    text="Red"/>
+</fieldset>
+
+We could loop over the values, or we could use the `unionVariants` combinator.
+It supports the common use case of creating a _variant per union member_, useful
+when we prefer _more components but less props_, over _less props but more
+components_:
+```tsx
+import {String} from 'effect'
+import {unionVariants} from 'react-compinators'
+
+const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
+  'color',           // Prop that we will partially apply.
+  COLORS,            // Array of union members.
+  String.capitalize, // Optional function will be used to compute variant
+                     // displayName from its `color` prop.
+) 
+
+<RedLabel    text="Red"/>
+<YellowLabel text="Yellow"/>
+<GreenLabel  text="Green"/>
+
+console.log(YellowLabel.displayName) // Yellow(Label)
+```
+
+<fieldset>
+<legend><code>unionVariants</code></legend>
+<GreenLabel2  text="Green"/>
+<YellowLabel2 text="Yellow"/>
+<RedLabel2    text="Red"/>
+</fieldset>
+
+## A note about `displayName`
+
+`displayName` is used mostly for debugging via [React Dev
+Tools](https://react.dev/learn/react-developer-tools). The convention for HOCs is:
+```text
+Original Component Name
+            ↓   
+   Yellow(Label)
+      ↑
+  HOC Name
+```
+
+Read more about React Dev Tools and HOCs
+[here](https://github.com/facebook/react/blob/main/packages/react-devtools/CHANGELOG.md#higher-order-components).
+
+</Unstyled>
+
+---
+
+import {Unstyled} from "@storybook/blocks"

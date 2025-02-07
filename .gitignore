@@ -4,3 +4,5 @@ node_modules
 tmp
 .npmrc
 .tsconfig.tsbuildinfo
+
+*storybook.log

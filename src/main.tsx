@@ -1,13 +1,14 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
-import App from './App.tsx'
+
+const Demo = () => <div>hello</div>
 
 const root = document.getElementById('root')
 
 if (root !== null) {
   createRoot(root).render(
     <StrictMode>
-      <App />
+      <Demo />
     </StrictMode>,
   )
 }
