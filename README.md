@@ -19,6 +19,8 @@ const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
 ) 
 ```
 
+See [the tutorial]() for more info.
+
 ## Quick Start
 
 ```sh

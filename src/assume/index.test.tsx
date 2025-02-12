@@ -1,5 +1,6 @@
 import {render} from '@testing-library/react'
-import {assume} from 'react-compinators'
+import type {JSX} from 'react'
+import {assume, assumeProp} from 'react-compinators'
 
 interface LabelProps {
   text: string
@@ -10,19 +11,16 @@ const Label = ({text, color: background}: LabelProps) => (
   <div style={{background}}>{text}</div>
 )
 
-const YellowLabel = assume(Label)({color: 'yellow'})
-
-const App = () => (
-  <div>
-    <YellowLabel text="Hello World!" />
-  </div>
-)
-
-const iut = () => render(<App />).getByText('Hello World!')
+const iut = (element: JSX.Element) =>
+  render(<div>{element}</div>).getByText('Hello World!')
 
 describe('assume', () => {
+  const YellowLabel = assume(Label)({color: 'yellow'})
+
   test('readme example', () => {
-    expect(iut()).toHaveStyle({background: 'yellow'})
+    expect(iut(<YellowLabel text="Hello World!" />)).toHaveStyle({
+      background: 'yellow',
+    })
   })
 
   describe('display name', () => {
@@ -35,5 +33,12 @@ describe('assume', () => {
         assume<LabelProps>(Label)({color: 'yellow'}, 'Yellow').displayName,
       ).toBe('Yellow(Label)')
     })
+  })
+})
+
+test('assumeProp', () => {
+  const YellowLabel = assumeProp(Label, 'color')('yellow')
+  expect(iut(<YellowLabel text="Hello World!" />)).toHaveStyle({
+    background: 'yellow',
   })
 })

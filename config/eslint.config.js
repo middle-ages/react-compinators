@@ -55,6 +55,7 @@ export default tseslint.config(
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/filename-case': 'off',
+      'unicorn/no-abusive-eslint-disable': 'off',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
