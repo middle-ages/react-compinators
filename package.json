@@ -21,6 +21,7 @@
   "scripts": {
     "dev": "vite -c config/vite.config.ts",
     "build": "vite build -c config/vite.config.ts",
+    "build:docs": "typedoc --options config/typedoc-json",
     "preview": "vite -c config/vite.config.ts preview",
     "clean": "dev/clean",
     "lint": "eslint --config config/eslint.config.js src",
@@ -34,9 +35,9 @@
     "ls:deps": "pnpm ls --prod",
     "ls:deps:dev": "pnpm ls --dev",
     "storybook": "storybook dev -c .storybook-webpack -p 6006",
-    "build:storybook": "storybook -c .storybook-webpack build",
+    "build:storybook": "storybook build -c .storybook-webpack",
     "storybook:vite": "storybook dev -c .storybook-vite -p 6006",
-    "build:storybook:vite": "storybook -c .storybook-vite build"
+    "build:storybook:vite": "storybook build -c .storybook-vite"
   },
   "dependencies": {
     "@effect/typeclass": "^0.31.11",
@@ -85,6 +86,7 @@
     "storybook": "^8.5.4",
     "style-loader": "^4.0.0",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "typedoc": "^0.27.7",
     "typescript": "~5.7.3",
     "typescript-eslint": "^8.24.0",
     "vite": "^6.1.0",

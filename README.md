@@ -19,7 +19,7 @@ const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
 ) 
 ```
 
-See [the tutorial]() for more info.
+See [the tutorial](https://middle-ages.github.io/react-compinators-docs/?path=/docs/tutorial--docs) for more info.
 
 ## Quick Start
 
@@ -80,7 +80,7 @@ supported by [React Dev Tools](https://react.dev/learn/react-developer-tools)
 so the debug experience of the `<YellowLabel>` should similar, except it will
 appear under the name `<Yellow(Label)>`.
 
-## The Combinators 
+## The Combinators
 
 1. `assume`
 2. `assumeProp`
@@ -88,5 +88,4 @@ appear under the name `<Yellow(Label)>`.
 
 ## See Also
 
-1. Tutorial
-2. API Docs
+1. [Tutorial](https://middle-ages.github.io/react-compinators-docs/?path=/docs/tutorial--docs) for more info.
