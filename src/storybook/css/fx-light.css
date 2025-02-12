@@ -10,6 +10,7 @@ html[data-theme='light'] {
   /** Text */
   --color-ink: lab(0% 0 0);
   --color-head: lab(20% 5 -25);
+  --color-ink-light: #779;
   /** 3D Borders */
   --color-3d-ink: #444;
   --color-3d-ink-hover: #222;

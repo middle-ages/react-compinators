@@ -1,8 +1,18 @@
-import {assume} from 'react-compinators'
+import {assume, assumeProp} from 'react-compinators'
 
 <Unstyled>
 
 # `react-compinators` Tutorial
+
+<ol>
+  <li><a href="#props"><code>Props</code></a></li>
+  <ol>
+    <li><a href="#1-assume"><code>assume</code></a></li>
+    <li><a href="#2-assumeprop"><code>assumeProp</code></a></li>
+    <li><a href="#3-unionvariants"><code>unionVariants</code></a></li>
+  </ol>
+  <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
+</ol>
 
 A simple label component we will use as a running example:
 ```tsx
@@ -65,12 +75,14 @@ The combinators in this library will let you set an optional `displayName` to
 aid debugging, but having none, will try to compute a reasonable value from
 their arguments.
 
-To override the _suffix_ we can use the second, optional argument to `assume`:
+To override the `displayName` _wrapper_ we can provide the second, optional
+argument to `assume`:
+
 ```tsx
-import {assume} from 'react-compinators'
+import {assume, assumeProp} from 'react-compinators'
 
 const YellowLabel = assume(Label)({color: 'yellow'}, 'Yellow')
-//                                                    ^^^^^^
+//                                                       ↑
 //                  Optional argument for displayName wrapper 
 
 <YellowLabel text="Hello World!" />
@@ -83,7 +95,29 @@ console.log(YellowLabel.displayName) // Yellow(Label)
 <YellowLabel1 text="Hello World!" />
 </fieldset>
 
-### 2. `unionVariants`
+### 2. `assumeProp`
+
+When you need to partially apply only a single prop, `assumeProp` is a simpler
+variant of `assume`. Note that it too takes an optional `displayName` argument:
+
+```tsx
+import {assumeProp} from 'react-compinators'
+
+const YellowLabel = assumeProp(Label, 'color')('yellow', 'My')
+
+<YellowLabel text="Hello World!" />
+
+console.log(YellowLabel.displayName) // My(Label)
+```
+
+export const YellowLabel2 = assumeProp(Label, 'color')('yellow', 'My')
+
+<fieldset>
+<legend>My(Label)</legend>
+<YellowLabel2 text="Hello World!" />
+</fieldset>
+
+### 3. `unionVariants`
 
 What if we wanted to partially apply _three_ variants of the button, one for
 each color?
@@ -99,15 +133,15 @@ const RedLabel    = assume(Label)({color: 'red'})
 <GreenLabel  text="Green"/>
 ```
 
-export const GreenLabel2 = assume(Label)({color: 'green'})
-export const YellowLabel2 = assume(Label)({color: 'yellow'})
-export const RedLabel2 = assume(Label)({color: 'red'})
+export const GreenLabel3 = assume(Label)({color: 'green'})
+export const YellowLabel3 = assume(Label)({color: 'yellow'})
+export const RedLabel3 = assume(Label)({color: 'red'})
 
 <fieldset>
 <legend>Calling <code>assume</code> <i>three</i> times</legend>
-<GreenLabel2  text="Green"/>
-<YellowLabel2 text="Yellow"/>
-<RedLabel2    text="Red"/>
+<GreenLabel3  text="Green"/>
+<YellowLabel3 text="Yellow"/>
+<RedLabel3    text="Red"/>
 </fieldset>
 
 We could loop over the values, or we could use the `unionVariants` combinator.
@@ -134,9 +168,9 @@ console.log(YellowLabel.displayName) // Yellow(Label)
 
 <fieldset>
 <legend><code>unionVariants</code></legend>
-<GreenLabel2  text="Green"/>
-<YellowLabel2 text="Yellow"/>
-<RedLabel2    text="Red"/>
+<GreenLabel3  text="Green"/>
+<YellowLabel3 text="Yellow"/>
+<RedLabel3    text="Red"/>
 </fieldset>
 
 ## A note about `displayName`

@@ -1,0 +1,48 @@
+h1,
+h2,
+h3,
+h4 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+h1,
+h4 {
+  color: var(--color-head);
+  font-weight: 450 !important;
+}
+
+h2,
+h3 {
+  font-weight: 400 !important;
+}
+
+h1,
+h1 * {
+  font-size: var(--h1-font-size) !important;
+  line-height: var(--h1-line-height) !important;
+  text-align: center;
+}
+
+h3 {
+  border-top: 2px groove !important;
+  padding-top: var(--pad-4);
+}
+
+h2,
+h2 * {
+  font-size: var(--h2-font-size) !important;
+  line-height: var(--h2-line-height) !important;
+}
+
+h3,
+h3 * {
+  font-size: var(--h3-font-size) !important;
+  line-height: var(--h3-line-height) !important;
+}
+
+h4,
+h3 * {
+  font-size: var(--h4-font-size) !important;
+  line-height: var(--h4-line-height) !important;
+}

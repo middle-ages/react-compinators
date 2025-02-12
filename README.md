@@ -79,3 +79,14 @@ The result is exactly the same. The style of HOCs you will find here is
 supported by [React Dev Tools](https://react.dev/learn/react-developer-tools)
 so the debug experience of the `<YellowLabel>` should similar, except it will
 appear under the name `<Yellow(Label)>`.
+
+## The Combinators 
+
+1. `assume`
+2. `assumeProp`
+3. `unionVariants`
+
+## See Also
+
+1. Tutorial
+2. API Docs

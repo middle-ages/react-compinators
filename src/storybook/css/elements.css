@@ -27,46 +27,11 @@ button {
   }
 }
 
-h1,
-h2,
-h3,
-h4 {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-h1,
-h4 {
-  color: var(--color-head);
-  font-weight: 450;
-}
-
-h1,
-h1 * {
-  font-size: var(--h1-font-size) !important;
-  line-height: var(--h1-line-height) !important;
-  text-align: center;
-}
-
-h2,
-h2 * {
-  font-size: var(--h2-font-size) !important;
-  line-height: var(--h2-line-height) !important;
-}
-
-h3,
-h3 * {
-  font-size: var(--h3-font-size) !important;
-  line-height: var(--h3-line-height) !important;
-}
-
-h4,
-h3 * {
-  font-size: var(--h4-font-size) !important;
-  line-height: var(--h4-line-height) !important;
-}
-
 fieldset {
   max-width: 20rem;
   border-radius: var(--pad-4);
+}
+
+li {
+  line-height: var(--tall-line-height);
 }

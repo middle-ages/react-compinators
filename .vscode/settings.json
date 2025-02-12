@@ -19,17 +19,21 @@
   "notebook.formatOnSave.enabled": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
+    "assumeprop",
     "autodocs",
     "combinators",
     "Combinators",
     "compinators",
     "depcruise",
+    "displayname",
     "Eeuo",
     "Eilam",
     "serviceworker",
     "storysource",
     "Symbola",
-    "tailwindcss"
+    "tailwindcss",
+    "unionvariant",
+    "unionvariants"
   ],
   "eslint.probe": [
     "typescript",

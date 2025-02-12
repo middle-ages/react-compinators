@@ -1,9 +1,9 @@
 :root {
   --font-size: 16px;
   --h1-font-size: 36px;
-  --h2-font-size: 30px;
-  --h3-font-size: 26px;
-  --h4-font-size: 20px;
+  --h2-font-size: 32px;
+  --h3-font-size: 28px;
+  --h4-font-size: 24px;
   --line-height-factor: 1.25;
   --tall-line-height-factor: 1.5;
   --pad-1: calc(var(--font-size) / 10);

@@ -14,4 +14,9 @@ code,
 pre,
 pre * {
   font-family: 'Fire Code', monospace !important;
+  font-size: var(--font-size) !important;
+}
+
+code {
+  color: var(--color-ink-light) !important;
 }

@@ -1,10 +1,14 @@
 import {render} from '@testing-library/react'
 import type {JSX} from 'react'
-import {assume, assumeProp} from 'react-compinators'
+import {assume, assumeProp, unionVariants} from 'react-compinators'
+
+const COLORS = ['green', 'yellow', 'red'] as const
+
+type Color = (typeof COLORS)[number]
 
 interface LabelProps {
   text: string
-  color: 'red' | 'yellow' | 'green'
+  color: Color
 }
 
 const Label = ({text, color: background}: LabelProps) => (
@@ -40,5 +44,30 @@ test('assumeProp', () => {
   const YellowLabel = assumeProp(Label, 'color')('yellow')
   expect(iut(<YellowLabel text="Hello World!" />)).toHaveStyle({
     background: 'yellow',
+  })
+})
+
+describe('unionVariants', () => {
+  const [GreenLabel, YellowLabel, RedLabel] = unionVariants(
+    Label,
+    'color',
+  )(COLORS)
+
+  test('green', () => {
+    expect(iut(<GreenLabel text="Hello World!" />)).toHaveStyle({
+      background: 'green',
+    })
+  })
+
+  test('yellow', () => {
+    expect(iut(<YellowLabel text="Hello World!" />)).toHaveStyle({
+      background: 'yellow',
+    })
+  })
+
+  test('red', () => {
+    expect(iut(<RedLabel text="Hello World!" />)).toHaveStyle({
+      background: 'red',
+    })
   })
 })
