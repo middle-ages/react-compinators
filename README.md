@@ -4,16 +4,33 @@ Functional utilities for composing React components: `compinators = Component Co
 
 ## Synopsis
 
+Create _three_ new components by partially applying the `<Label>` component
+`color` prop, one for each member of the `COLORS` union:
+
+```tsx
+import {String} from 'effect'
+import {unionVariants} from 'react-compinators'
+
+const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
+  'color',           // Prop that we will partially apply.
+  COLORS,            // Array of union members.
+  String.capitalize, // Optional function will be used to compute variant
+                     // displayName from its `color` prop.
+) 
+```
+
 ## Quick Start
 
 ```sh
 > pnpm add react-compinators
 ```
 
-In your component:
+You can then import any of the exported functions from the package
+`react-compinators`. For example to import the `assume` function in your
+component:
 
 ```tsx
-import {} from 'react-compinators'
+import {assume} from 'react-compinators'
 ```
 
 ## Why?
