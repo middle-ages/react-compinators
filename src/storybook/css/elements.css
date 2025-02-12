@@ -28,7 +28,7 @@ button {
 }
 
 fieldset {
-  max-width: 20rem;
+  max-width: 16rem;
   border-radius: var(--pad-4);
 }
 

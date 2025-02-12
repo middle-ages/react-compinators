@@ -46,8 +46,8 @@ export const Label = ({text, color: background}) => (
 
 ### 1. `assume`
 
-To partially apply a subset of the `<Label>` props, we can use `assume`(_base_)(
-partial props ):
+To partially apply a subset of the `<Label>` props, we can use
+`assume`(_base_)(partial props):
 ```tsx
 import {assume} from 'react-compinators'
 
@@ -79,7 +79,7 @@ To override the `displayName` _wrapper_ we can provide the second, optional
 argument to `assume`:
 
 ```tsx
-import {assume, assumeProp} from 'react-compinators'
+import {assume} from 'react-compinators'
 
 const YellowLabel = assume(Label)({color: 'yellow'}, 'Yellow')
 //                                                       ↑
@@ -89,11 +89,17 @@ const YellowLabel = assume(Label)({color: 'yellow'}, 'Yellow')
 
 console.log(YellowLabel.displayName) // Yellow(Label)
 ```
+export const YellowLabel2 = assume(Label)({color: 'yellow'}, 'Yellow')
 
 <fieldset>
 <legend>Yellow(Label)</legend>
-<YellowLabel1 text="Hello World!" />
+<YellowLabel2 text="Hello World!" />
 </fieldset>
+
+Here is how it looks in React Dev Tools with a default (`assumeColor`) vs.
+custom `displayName` (`Yellow`):
+
+![Dev Tools Screenshot](../docs/dev-tools-display-name.png)
 
 ### 2. `assumeProp`
 
@@ -110,11 +116,11 @@ const YellowLabel = assumeProp(Label, 'color')('yellow', 'My')
 console.log(YellowLabel.displayName) // My(Label)
 ```
 
-export const YellowLabel2 = assumeProp(Label, 'color')('yellow', 'My')
+export const YellowLabel3 = assumeProp(Label, 'color')('yellow', 'My')
 
 <fieldset>
 <legend>My(Label)</legend>
-<YellowLabel2 text="Hello World!" />
+<YellowLabel3 text="Hello World!" />
 </fieldset>
 
 ### 3. `unionVariants`
@@ -133,15 +139,15 @@ const RedLabel    = assume(Label)({color: 'red'})
 <GreenLabel  text="Green"/>
 ```
 
-export const GreenLabel3 = assume(Label)({color: 'green'})
-export const YellowLabel3 = assume(Label)({color: 'yellow'})
-export const RedLabel3 = assume(Label)({color: 'red'})
+export const GreenLabel4 = assume(Label)({color: 'green'})
+export const YellowLabel4 = assume(Label)({color: 'yellow'})
+export const RedLabel4 = assume(Label)({color: 'red'})
 
 <fieldset>
 <legend>Calling <code>assume</code> <i>three</i> times</legend>
-<GreenLabel3  text="Green"/>
-<YellowLabel3 text="Yellow"/>
-<RedLabel3    text="Red"/>
+<GreenLabel4  text="Green"/>
+<YellowLabel4 text="Yellow"/>
+<RedLabel4    text="Red"/>
 </fieldset>
 
 We could loop over the values, or we could use the `unionVariants` combinator.
@@ -168,9 +174,9 @@ console.log(YellowLabel.displayName) // Yellow(Label)
 
 <fieldset>
 <legend><code>unionVariants</code></legend>
-<GreenLabel3  text="Green"/>
-<YellowLabel3 text="Yellow"/>
-<RedLabel3    text="Red"/>
+<GreenLabel4  text="Green"/>
+<YellowLabel4 text="Yellow"/>
+<RedLabel4    text="Red"/>
 </fieldset>
 
 ## A note about `displayName`
