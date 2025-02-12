@@ -35,7 +35,7 @@
     "ls:deps": "pnpm ls --prod",
     "ls:deps:dev": "pnpm ls --dev",
     "storybook": "storybook dev -c .storybook-webpack -p 6006",
-    "build:storybook": "storybook build -c .storybook-webpack",
+    "build:storybook": "storybook build -c .storybook-vite",
     "storybook:vite": "storybook dev -c .storybook-vite -p 6006",
     "build:storybook:vite": "storybook build -c .storybook-vite"
   },

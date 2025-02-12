@@ -19,7 +19,7 @@ const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
 ) 
 ```
 
-See [the tutorial](https://middle-ages.github.io/react-compinators-docs/?path=/docs/tutorial--docs) for more info.
+See [the tutorial](https://middle-ages.github.io/react-compinators-docs/iframe.html?viewMode=docs&id=tutorial--docs) for more info.
 
 ## Quick Start
 
@@ -88,4 +88,4 @@ appear under the name `<Yellow(Label)>`.
 
 ## See Also
 
-1. [Tutorial](https://middle-ages.github.io/react-compinators-docs/?path=/docs/tutorial--docs) for more info.
+1. [Tutorial](https://middle-ages.github.io/react-compinators-docs/iframe.html?viewMode=docs&id=tutorial--docs)

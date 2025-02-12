@@ -1,3 +1,5 @@
+import '../src/storybook/css/index.css'
+
 const preview = {
   tags: ['autodocs'],
   parameters: {
