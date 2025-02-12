@@ -12,9 +12,9 @@ import {String} from './util.ts'
  * not include any props that are _not_ in the base component.
  */
 export type Assumed<
-  BaseProps extends object,
-  Props extends Partial<BaseProps>,
-> = Omit<BaseProps, keyof Props>
+  BaseProperties extends object,
+  Properties extends Partial<BaseProperties>,
+> = Omit<BaseProperties, keyof Properties>
 
 /**
  * Partially apply a subset of given component props.
@@ -22,29 +22,33 @@ export type Assumed<
  * @param Base - Base component that will be partially applied.
  */
 export const assume =
-  <BaseProps extends object>(Base: FC<BaseProps>) =>
-  <const Props extends Partial<BaseProps>>(
+  <BaseProperties extends object>(Base: FC<BaseProperties>) =>
+  <const Properties extends Partial<BaseProperties>>(
     /**
      * Props that will be partially applied to the base component in the
      * returned variant.
      */
-    partialProps: Props,
+    partialProperties: Properties,
     /**
      * Optional `displayName` wrapper will be added to base component
      * `displayName`. Default is computed from given prop names.
      */
     maybeNameWrapper?: string,
-  ): FC<Simplify<Assumed<BaseProps, Props>>> => {
-    const Component = (remaining: Simplify<Assumed<BaseProps, Props>>) => {
+  ): FC<Simplify<Assumed<BaseProperties, Properties>>> => {
+    const Component = (
+      remaining: Simplify<Assumed<BaseProperties, Properties>>,
+    ) => {
       const allProps = {
-        ...partialProps,
-        ...(remaining as Omit<BaseProps, keyof Props> | BaseProps),
-      } as BaseProps
+        ...partialProperties,
+        ...(remaining as
+          | Omit<BaseProperties, keyof Properties>
+          | BaseProperties),
+      } as BaseProperties
       return <Base {...allProps} />
     }
     return pipe(
       maybeNameWrapper ??
-        pipe(partialProps, displayNameFor, String.prefix('assume')),
+        pipe(partialProperties, displayNameFor, String.prefix('assume')),
       wrapDisplayName(Component, Base),
     )
   }

@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client'
 
 const Demo = () => <div>hello</div>
 
-const root = document.getElementById('root')
+const root = document.querySelector('#root')
 
 if (root !== null) {
   createRoot(root).render(
