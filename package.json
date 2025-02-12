@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vite -c config/vite.config.ts",
     "build": "vite build -c config/vite.config.ts",
-    "build:docs": "typedoc --options config/typedoc-json",
+    "build:docs": "typedoc --options config/typedoc.json",
     "preview": "vite -c config/vite.config.ts preview",
     "clean": "dev/clean",
     "lint": "eslint --config config/eslint.config.js src",

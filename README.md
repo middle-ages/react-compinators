@@ -89,3 +89,4 @@ appear under the name `<Yellow(Label)>`.
 ## See Also
 
 1. [Tutorial](https://middle-ages.github.io/react-compinators-docs/iframe.html?viewMode=docs&id=tutorial--docs)
+2. [API Reference](https://middle-ages.github.io/react-compinators-docs/docs)
