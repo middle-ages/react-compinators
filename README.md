@@ -82,9 +82,9 @@ appear under the name `<Yellow(Label)>`.
 
 ## The Combinators
 
-1. `assume`
-2. `assumeProp`
-3. `unionVariants`
+1. [`assume`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assume.html)
+2. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)
+3. [`unionVariants`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unionVariants.html)
 
 ## See Also
 
