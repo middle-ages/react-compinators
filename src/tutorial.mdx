@@ -103,7 +103,7 @@ export const YellowLabel2 = assume(Label)({color: 'yellow'}, 'Yellow')
 Here is how it looks in React Dev Tools with a default (`assumeColor`) vs.
 custom `displayName` (`Yellow`):
 
-![Dev Tools Screenshot](/react-combinators-docs/docs/dev-tools-display-name.png)
+![Dev Tools Screenshot](https://middle-ages.github.io/react-compinators-docs/docs/dev-tools-display-name.png)
 
 All combinators follow this pattern of taking an optional value that will
 determine `displayName`.
@@ -278,4 +278,7 @@ Read more about React Dev Tools and HOCs
 [here](https://github.com/facebook/react/blob/main/packages/react-devtools/CHANGELOG.md#higher-order-components).
 
 </Unstyled>
+import {Unstyled} from "@storybook/blocks"
+import {pipe, String} from 'effect'
+import {assume, assumeProp, mapProps, modProp, unionVariants} from 'react-compinators'
 
