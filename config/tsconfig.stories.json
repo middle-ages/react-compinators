@@ -14,8 +14,7 @@
     "../**/*.stories.tsx",
     "../src/storybook/**/*.ts",
     "../src/storybook/**/*.tsx",
-    "../.storybook-webpack/preview.ts",
-    "../.storybook-vite/preview.ts"
+    "../.storybook/preview.ts"
   ],
   "mdx": {
     "checkMdx": true

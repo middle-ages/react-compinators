@@ -1,4 +1,4 @@
-# react-compinators
+# λ⚛ React Compinators Tutorial
 
 Functional utilities for composing React components: `compinators = Component Combinators`.
 
@@ -85,6 +85,8 @@ appear under the name `<Yellow(Label)>`.
 1. [`assume`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assume.html)
 2. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)
 3. [`unionVariants`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unionVariants.html)
+4. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
+5. [`mapProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html)
 
 ## See Also
 

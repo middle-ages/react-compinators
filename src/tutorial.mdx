@@ -1,15 +1,19 @@
-import {assume, assumeProp} from 'react-compinators'
+import {Unstyled} from "@storybook/blocks"
+import {pipe, String} from 'effect'
+import {mapProps, assume, assumeProp, modProp, unionVariants} from 'react-compinators'
 
 <Unstyled>
 
-# `react-compinators` Tutorial
+<h1><span style={{fontFamily: 'Times New Roman, Times, serif'}}>λ⚛</span> React Compinators Tutorial</h1>
 
 <ol>
   <li><a href="#props"><code>Props</code></a></li>
   <ol>
-    <li><a href="#1-assume"><code>assume</code></a></li>
-    <li><a href="#2-assumeprop"><code>assumeProp</code></a></li>
-    <li><a href="#3-unionvariants"><code>unionVariants</code></a></li>
+    <li><a href="#1-assume"><code>assume</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/assume.html">API</a>)</li>
+    <li><a href="#2-assumeprop"><code>assumeProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html">API</a>)</li>
+    <li><a href="#3-unionvariants"><code>unionVariants</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/unionVariants.html">API</a>)</li>
+    <li><a href="#4-modprop"><code>modProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html">API</a>)</li>
+    <li><a href="#5-mapprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html">API</a>)</li>
   </ol>
   <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
 </ol>
@@ -101,6 +105,9 @@ custom `displayName` (`Yellow`):
 
 ![Dev Tools Screenshot](../docs/dev-tools-display-name.png)
 
+All combinators follow this pattern of taking an optional value that will
+determine `displayName`.
+
 ### 2. `assumeProp`
 
 When you need to partially apply only a single prop, `assumeProp` is a simpler
@@ -158,8 +165,10 @@ components_:
 import {String} from 'effect'
 import {unionVariants} from 'react-compinators'
 
-const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
-  'color',           // Prop that we will partially apply.
+const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(
+  Label,             // Base component.
+  'color',           // Prop that we will be setting.
+)(
   COLORS,            // Array of union members.
   String.capitalize, // Optional function will be used to compute variant
                      // displayName from its `color` prop.
@@ -172,12 +181,86 @@ const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
 console.log(YellowLabel.displayName) // Yellow(Label)
 ```
 
+export const [GreenLabel5, YellowLabel5, RedLabel5] = unionVariants(
+  Label, 'color',
+)(
+  COLORS,
+  String.capitalize,
+) 
+
 <fieldset>
 <legend><code>unionVariants</code></legend>
-<GreenLabel4  text="Green"/>
-<YellowLabel4 text="Yellow"/>
-<RedLabel4    text="Red"/>
+<GreenLabel5  text="Green"/>
+<YellowLabel5 text="Yellow"/>
+<RedLabel5    text="Red"/>
 </fieldset>
+
+### 4. `modProp`
+
+`modProp` is used to map over a component prop without changing its type.The
+returned component will be of the same type as the base component.
+
+Useful for example to add a CSS class to the a component without creating a new
+component or changing the component props at its call site. In this case it would
+act like `assume`, except instead of fixing a prop value, we are _adding_ fixed
+value to the prop.
+
+Here we convert our label into one that appends a question mark to the text:
+
+```tsx
+import {String, pipe} from 'effect'
+import {modProp} from 'react-compinators'
+
+const QuestionLabel: typeof Label = pipe('?', String.concat, modProp(Label, 'text'))
+
+<QuestionLabel color="yellow" text="Hello World" />
+
+console.log(QuestionLabel.displayName) // mapPropText(Label)
+```
+
+export const QuestionLabel = pipe('?', String.concat, modProp(Label, 'text'))
+
+<fieldset>
+<legend><code>modPropText(Label)</code></legend>
+<QuestionLabel color="yellow" text="Hello World" />
+</fieldset>
+
+### 5. `mapProps`
+
+When:
+ 
+1. You have a component that takes props of type `A`.
+2. But you want a component that takes props of type `B`.
+3. And the props you have are of type `B`.
+4. But you do have some way of converting `B` ⇒ `A`.
+ 
+ For example lets convert a component that display a number into a component
+ that displays character count for a given string:
+ 
+ ```tsx
+ import {mapProps} from 'react-compinators'
+ interface B { foo: string }
+ interface A { bar: number }
+ 
+ const ComponentA: FC<A> = ({ bar }) => <div>{bar + 1}</div>;
+ 
+ // The function mapping B ⇒ A
+ const mapper = (a: B): A => ({ bar: a.foo.length })
+ 
+ // We now have a component of B
+ const ComponentB: FC<B> = pipe(ComponentA, mapProps(mapper));
+
+ <ComponentB foo="foo">
+ ```
+export const ComponentA = ({bar}) => <div>{bar.toString()}</div>
+export const mapper = (a) => ({bar: a.foo.length})
+export const ComponentB = pipe(ComponentA, mapProps(mapper));
+
+<fieldset>
+<legend><code>mapProps(ComponentA)</code></legend>
+<ComponentB foo="Hello World!" />
+</fieldset>
+
 
 ## A note about `displayName`
 
@@ -195,7 +278,3 @@ Read more about React Dev Tools and HOCs
 [here](https://github.com/facebook/react/blob/main/packages/react-devtools/CHANGELOG.md#higher-order-components).
 
 </Unstyled>
-
----
-
-import {Unstyled} from "@storybook/blocks"

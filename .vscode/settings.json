@@ -3,7 +3,6 @@
   "eslint.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.run": "onSave",
-  "markdownlint.run": "onSave",
   "eslint.options": {
     "overrideConfigFile": "config/eslint.config.js"
   },
@@ -24,10 +23,14 @@
     "combinators",
     "Combinators",
     "compinators",
+    "contramap",
     "depcruise",
     "displayname",
     "Eeuo",
     "Eilam",
+    "mapprops",
+    "modprop",
+    "Monoid",
     "serviceworker",
     "storysource",
     "Symbola",
@@ -46,5 +49,8 @@
   "typescript.suggest.autoImports": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "accessibility.verbosity.inlineCompletions": false,
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "markdownlint.config": {
+    "MD033": false
+  }
 }
