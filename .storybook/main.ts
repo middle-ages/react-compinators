@@ -2,7 +2,17 @@ import type {StorybookConfig} from '@storybook/react-vite'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  staticDirs: ['../src/storybook/css', '../docs'],
+  staticDirs: [
+    {
+      from: '../src/storybook/css',
+      to: 'css',
+    },
+    {
+      from: '../docs',
+      to: 'docs',
+    },
+  ],
+
   docs: {
     autodocs: 'tag',
   },
@@ -32,7 +42,6 @@ const config: StorybookConfig = {
   },
   addons: [
     '@storybook/addon-essentials',
-    '@storybook/addon-webpack5-compiler-swc',
     '@storybook/addon-storysource',
     '@storybook/addon-interactions',
   ],
