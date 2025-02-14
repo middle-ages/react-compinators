@@ -4,20 +4,18 @@
     "tsBuildInfoFile": "../node_modules/.tmp/tsconfig.tsbuildinfo",
 
     "rootDir": "..",
-    "moduleResolution": "bundler",
-    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
     "skipLibCheck": true,
     "allowJs": true,
     "checkJs": false,
 
-    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "noUncheckedSideEffectImports": true,
 
-    "noEmit": true,
     "incremental": true,
     "noErrorTruncation": true,
 

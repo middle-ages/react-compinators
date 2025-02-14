@@ -1,14 +1,14 @@
 {
   "name": "react-compinators",
   "description": "React component combinators",
-  "version": "1.0.3",
+  "version": "1.0.13",
   "type": "module",
   "author": "Ran Eilam <ran@haag59.com> (https://middle-ages.github.io/)",
-  "homepage": "https://github.com/middle-ages/react-combinators",
-  "bugs": "https://github.com/middle-ages/react-combinators/issues",
+  "homepage": "https://github.com/middle-ages/react-compinators",
+  "bugs": "https://github.com/middle-ages/react-compinators/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/middle-ages/react-combinators"
+    "url": "git+https://github.com/middle-ages/react-compinators"
   },
   "license": "ISC",
   "keywords": [
@@ -42,9 +42,6 @@
     "ls:deps": "pnpm ls --prod",
     "ls:deps:dev": "pnpm ls --dev"
   },
-  "files": [
-    ".dev"
-  ],
   "dependencies": {
     "@effect/typeclass": "^0.32.1",
     "effect": "^3.13.1",
@@ -111,31 +108,37 @@
   "exports": {
     ".": {
       "import": {
-        "import": "./src/index.ts"
+        "types": "./index.d.ts",
+        "import": "./index.js"
       }
     },
     "./test": {
       "import": {
-        "import": "./src/test.ts"
+        "types": "./src/test.d.ts",
+        "import": "./src/test.js"
       }
     },
     "./storybook": {
       "import": {
-        "import": "./src/storybook.ts"
+        "types": "./src/storybook.d.ts",
+        "import": "./src/storybook.js"
       }
     },
     "./test/*": {
       "import": {
-        "import": "./src/test/*.ts"
+        "types": "./src/test/*.d.ts",
+        "import": "./src/test/*.js"
       }
     }
   },
   "imports": {
     "#test": {
-      "import": "./src/test.ts"
+      "types": "./src/test.d.ts",
+      "import": "./src/test.js"
     },
     "#storybook": {
-      "import": "./src/storybook.ts"
+      "types": "./src/storybook.d.ts",
+      "import": "./src/storybook.js"
     }
   }
 }

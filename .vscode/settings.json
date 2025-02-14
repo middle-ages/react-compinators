@@ -33,6 +33,7 @@
     "mapprops",
     "modprop",
     "Monoid",
+    "nodenext",
     "omitprops",
     "pointcuts",
     "serviceworker",
@@ -41,7 +42,8 @@
     "tailwindcss",
     "unfoldprop",
     "unionvariant",
-    "unionvariants"
+    "unionvariants",
+    "vite"
   ],
   "eslint.probe": [
     "typescript",

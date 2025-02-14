@@ -2,7 +2,7 @@ import {unary} from 'effect-ts-laws'
 import type {Arbitrary} from 'fast-check'
 import fc from 'fast-check'
 import {type ReactNode} from 'react'
-import type {SyncFC} from './types'
+import type {SyncFC} from './types.js'
 
 /** Arbitrary `ReactNode` encoding a random string in a `<div>` element. */
 export const reactNode: Arbitrary<ReactNode> = fc

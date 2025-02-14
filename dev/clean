@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-rm -rf .dev \
+rm -rf dist \
        storybook-static \
        ../react-compinators-docs/* 2> /dev/null 

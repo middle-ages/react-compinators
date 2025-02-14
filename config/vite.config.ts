@@ -5,12 +5,11 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
   plugins: [react(), dts({tsconfigPath: 'config/tsconfig.lib.json'})],
   build: {
-    outDir: '.dev',
+    outDir: 'dist',
     lib: {
-      entry: ['src/index.ts'],
+      entry: ['index.ts'],
       name: 'react-compinators',
       formats: ['es'],
-      fileName: 'react-compinators',
     },
   },
 })

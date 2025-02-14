@@ -4,6 +4,7 @@ set -Eeuo pipefail
 
 DOCS=../react-compinators-docs
 
+pnpm build:vite
 pnpm build:api
 pnpm build:storybook
 cp -r storybook-static/* "$DOCS"

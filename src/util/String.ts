@@ -1,5 +1,5 @@
 import {String} from 'effect'
-import type {Pair} from './Pair.ts'
+import type {Pair} from './Pair.js'
 
 export * from 'effect/String'
 

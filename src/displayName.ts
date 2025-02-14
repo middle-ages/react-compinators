@@ -1,7 +1,7 @@
 import {Array, flow, Function, pipe, Record} from 'effect'
 import type {FC} from 'react'
-import {type AnyComponent} from './component.ts'
-import {String} from './util.ts'
+import {type AnyComponent} from './component.js'
+import {String} from './util.js'
 
 /** Return `displayName` of a React component or `Anonymous` if none found. */
 export const getDisplayName = (source: FC): string =>

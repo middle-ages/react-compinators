@@ -1,5 +1,5 @@
 *.log
-.dev
+dist
 node_modules
 tmp
 .npmrc

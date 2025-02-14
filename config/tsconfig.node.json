@@ -3,7 +3,8 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2023"],
-    "types": ["node"]
+    "types": ["node"],
+    "noEmit": true
   },
   "include": [
     "vite.config.ts",

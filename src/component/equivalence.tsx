@@ -2,7 +2,7 @@ import {Equivalence as EQ, Equal} from 'effect'
 import {testUnaryEquivalence} from 'effect-ts-laws'
 import type {Arbitrary} from 'fast-check'
 import {type ReactNode} from 'react'
-import type {SyncFC} from './types.ts'
+import type {SyncFC} from './types.js'
 
 /** Equivalence for `ReactNode`. */
 export const reactNode: EQ.Equivalence<ReactNode> =

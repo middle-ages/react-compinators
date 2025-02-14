@@ -1,7 +1,7 @@
 import {Array, pipe, Types} from 'effect'
 import {FC} from 'react'
-import {displayNameFor, wrapDisplayName} from './displayName.ts'
-import {String} from './util.ts'
+import {displayNameFor, wrapDisplayName} from './displayName.js'
+import {String} from './util.js'
 
 /**
  * Unfold the given component into a component per member of the given union,

@@ -11,7 +11,7 @@ const {languageOptions: _, ...prettierRecommended} = allPrettierRecommended
 
 export default tseslint.config(
   {
-    ignores: ['../node_modules', '../.dev', 'dependency-cruiser.cjs'],
+    ignores: ['../node_modules', '../dist', 'dependency-cruiser.cjs'],
   },
 
   {

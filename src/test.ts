@@ -1,1 +1,1 @@
-export * from './test/DummyButton.tsx'
+export * from './test/DummyButton.jsx'

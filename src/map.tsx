@@ -1,6 +1,6 @@
 import {pipe, String, Struct} from 'effect'
 import type {FC} from 'react'
-import {wrapDisplayName} from './displayName'
+import {wrapDisplayName} from './displayName.js'
 
 export const omitProps =
   <Props extends object>(Base: FC<Props>, displayName = 'omitProps') =>

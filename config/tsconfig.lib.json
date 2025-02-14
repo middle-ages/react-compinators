@@ -1,13 +1,17 @@
 {
   "extends": ["./tsconfig.browser.json"],
   "compilerOptions": {
-    "outDir": "../.dev",
+    "outDir": "../dist",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationMap": true,
-    "noEmit": false
+    "declarationMap": true
   },
-  "include": ["../src/**/*.ts", "../src/**/*.tsx", "../src/**/*.css"],
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx",
+    "../src/**/*.css",
+    "../index.ts"
+  ],
   "exclude": [
     "../**/*.stories.ts",
     "../**/*.stories.tsx",
