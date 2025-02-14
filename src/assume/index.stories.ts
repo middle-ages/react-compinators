@@ -13,7 +13,7 @@ const meta = {
 } satisfies Meta<typeof YellowButton>
 
 export const Story: Story = {
-  name: 'assumeProps',
+  name: 'assume',
   args: {
     text: 'Button',
     onClick: action('ButtonClick'),

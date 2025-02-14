@@ -30,6 +30,7 @@ module.exports = {
           '(^|/)(?:babel|webpack)[.]config[.](?:js|cjs|mjs|ts|cts|mts|json)$', // other configs
           '[.]test[.]ts',
           '[.]test[.]tsx',
+          '[.]stories[.]ts',
           '[.]stories[.]tsx',
           'src[/]test[.]setup[.]ts',
           'src[/]main[.]ts',
@@ -309,7 +310,9 @@ module.exports = {
       /* List of conditions to check for in the exports field.
          Only works when the 'exportsFields' array is non-empty.
       */
-      conditionNames: ['cruiser'],
+      /*
+      conditionNames: ['internal'],
+      */
       /*
          The extensions, by default are the same as the ones dependency-cruiser
          can access (run `npx depcruise --info` to see which ones that are in

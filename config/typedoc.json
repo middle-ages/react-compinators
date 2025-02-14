@@ -1,15 +1,13 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": [
-    "../src/index.ts"
-  ],
+  "entryPoints": ["../src/index.ts"],
   "out": "../../react-compinators-docs/docs",
   "readme": "../README.md",
   "hideGenerator": true,
   "searchInComments": true,
   "json": "../.dev/typedoc-index.json",
   "searchInDocuments": true,
-  "tsconfig": "./tsconfig.app.json",
+  "tsconfig": "./tsconfig.lib.json",
   "githubPages": true,
   "cleanOutputDir": false,
   "navigation": {

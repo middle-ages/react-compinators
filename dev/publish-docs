@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+pnpm build:clean
+
+cd ../react-compinators-docs
+git add .
+git commit -m update
+git push
+cd ../react-compinators
+

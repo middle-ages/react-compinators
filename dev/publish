@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+pnpm build:clean
+
+cp ~/.npmrc .
+
+pnpm publish 
+
+rm .npmrc

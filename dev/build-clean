@@ -7,4 +7,4 @@ pnpm lint
 pnpm circular
 pnpm typecheck
 pnpm test:run
-pnpm build
+pnpm build:all
