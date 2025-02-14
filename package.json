@@ -33,6 +33,8 @@
     "build:vite": "vite build -c config/vite.config.ts",
     "build:api": "typedoc --options config/typedoc.json",
     "build:storybook": "storybook build",
+    "build": "dev/build",
+    "build:clean": "dev/rebuild",
     "graph:dependencies": "dev/graph-dependencies",
     "ls:deps": "pnpm ls --prod",
     "ls:deps:dev": "pnpm ls --dev"

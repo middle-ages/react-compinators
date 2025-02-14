@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+DOCS=../react-compinators-docs
+
+pnpm build:api
+pnpm build:storybook
+cp -r storybook-static/* "$DOCS"
+cp -r docs "$DOCS"
+cp docs/dev-tools-display-name.png "$DOCS/docs"
+mkdir -p "$DOCS/src/storybook/css"
+cp src/storybook/css/index.css "$DOCS/src/storybook/css"
+
+

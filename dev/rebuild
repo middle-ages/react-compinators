@@ -5,6 +5,5 @@ set -Eeuo pipefail
 pnpm clean
 pnpm lint
 pnpm typecheck
-pnpm circular
 pnpm test:run
 pnpm build
