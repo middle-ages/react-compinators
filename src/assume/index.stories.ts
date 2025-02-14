@@ -1,9 +1,9 @@
 import {DummyButton} from '#test'
 import {action} from '@storybook/addon-actions'
 import type {Meta, StoryObj} from '@storybook/react'
-import {assume} from 'react-compinators'
+import {assumeProps} from 'react-compinators'
 
-const YellowButton = assume(DummyButton)({color: 'yellow'}, 'Yellow')
+const YellowButton = assumeProps(DummyButton)({color: 'yellow'}, 'Yellow')
 
 type Story = StoryObj<typeof YellowButton>
 
@@ -13,7 +13,7 @@ const meta = {
 } satisfies Meta<typeof YellowButton>
 
 export const Story: Story = {
-  name: 'assume',
+  name: 'assumeProps',
   args: {
     text: 'Button',
     onClick: action('ButtonClick'),

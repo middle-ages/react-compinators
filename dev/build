@@ -8,7 +8,8 @@ pnpm build:api
 pnpm build:storybook
 cp -r storybook-static/* "$DOCS"
 cp -r docs "$DOCS"
-cp docs/dev-tools-display-name.png "$DOCS/docs"
+cp docs/dev-tools-display-name-default.png "$DOCS/docs"
+cp docs/dev-tools-display-name-custom.png "$DOCS/docs"
 mkdir -p "$DOCS/src/storybook/css"
 cp src/storybook/css/index.css "$DOCS/src/storybook/css"
 

@@ -1,6 +1,7 @@
 # λ⚛ React Compinators Tutorial
 
-Functional utilities for composing React components: `compinators = Component Combinators`.
+A tiny library of functional utilities for composing React components:
+`compinators = Component Combinators`.
 
 ## Synopsis
 
@@ -82,13 +83,22 @@ appear under the name `<Yellow(Label)>`.
 
 ## The Combinators
 
-1. [`assume`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assume.html)
-2. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)
-3. [`unionVariants`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unionVariants.html)
-4. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
-5. [`mapProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html)
+1. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)
+2. [`assumeProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProps.html)
+3. [`mapProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProp.html)
+4. [`mapProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html)
+5. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
+6. [`omitProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html)
+7. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
+
+## Roadmap
+
+1. Guards and branches
+2. Layout and children
+3. Debug and pointcuts
 
 ## See Also
 
 1. [Tutorial](https://middle-ages.github.io/react-compinators-docs/iframe.html?viewMode=docs&id=tutorial--docs)
 2. [API Reference](https://middle-ages.github.io/react-compinators-docs/docs)
+3. [recompose](https://www.npmjs.com/package/recompose)

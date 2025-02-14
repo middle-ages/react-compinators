@@ -30,8 +30,26 @@ button {
 fieldset {
   max-width: 16rem;
   border-radius: var(--pad-4);
+  padding: var(--pad-4) !important;
+  margin: var(--pad-5) !important;
 }
 
 li {
   line-height: var(--tall-line-height);
+}
+
+pre {
+  background: #fafafc !important;
+  padding: var(--pad-4) !important;
+  margin: var(--pad-3) !important;
+}
+
+p,
+div {
+  margin: var(--pad-4) !important;
+  padding: var(--pad--3) !important;
+}
+
+legend {
+  white-space: nowrap;
 }

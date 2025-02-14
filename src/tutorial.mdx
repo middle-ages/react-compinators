@@ -1,22 +1,38 @@
 import {Unstyled} from "@storybook/blocks"
 import {pipe, String} from 'effect'
-import {mapProps, assume, assumeProp, modProp, unionVariants} from 'react-compinators'
+import {
+  assumeProp,
+  assumeProps,
+  modProp,
+  mapProp,
+  mapProps,
+  omitProps,
+  unfoldProp
+} from 'react-compinators'
 
 <Unstyled>
 
 <h1><span style={{fontFamily: 'Times New Roman, Times, serif'}}>λ⚛</span> React Compinators Tutorial</h1>
 
 <ol>
-  <li><a href="#props"><code>Props</code></a></li>
+  <li><a href="#running-example"><code>Running Example</code></a></li>
+  <li><a href="#assume"><code>Assume</code></a></li>
   <ol>
-    <li><a href="#1-assume"><code>assume</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/assume.html">API</a>)</li>
+    <li><a href="#1-assumeprops"><code>assumeProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProps.html">API</a>)</li>
     <li><a href="#2-assumeprop"><code>assumeProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html">API</a>)</li>
-    <li><a href="#3-unionvariants"><code>unionVariants</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/unionVariants.html">API</a>)</li>
-    <li><a href="#4-modprop"><code>modProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html">API</a>)</li>
-    <li><a href="#5-mapprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html">API</a>)</li>
+    <li><a href="#3-unfoldprop"><code>unfoldProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html">API</a>)</li>
+  </ol>
+  <li><a href="#map"><code>Map</code></a></li>
+  <ol>
+    <li><a href="#1-modprop"><code>modProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html">API</a>)</li>
+    <li><a href="#2-mapprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html">API</a>)</li>
+    <li><a href="#3-mapprop"><code>mapProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProp.html">API</a>)</li>
+    <li><a href="#4-omitprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html">API</a>)</li>
   </ol>
   <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
 </ol>
+
+## Running Example
 
 A simple label component we will use as a running example:
 ```tsx
@@ -46,30 +62,30 @@ export const Label = ({text, color: background}) => (
 <Label text="Red"    color="red" />
 </fieldset>
 
-## Props
+## The Combinators
 
-### 1. `assume`
+### Assume
+
+#### 1. `assumeProps`
 
 To partially apply a subset of the `<Label>` props, we can use
-`assume`(_base_)(partial props):
+`assumeProps`(_base_)(partial props):
 ```tsx
-import {assume} from 'react-compinators'
+import {assumeProps} from 'react-compinators'
 
-const YellowLabel = assume(Label)({color: 'yellow'})
+const YellowLabel = assumeProps(Label)({color: 'yellow'})
 
 <YellowLabel text="Hello World!" />
 
-console.log(YellowLabel.displayName) // assumeColor(Label)
+console.log(YellowLabel.displayName) // assumePropsColor(Label)
 ```
 
-export const YellowLabel1 = assume(Label)({color: 'yellow'})
+export const YellowLabel1 = assumeProps(Label)({color: 'yellow'})
 
 <fieldset>
-<legend>assumeColor(Label)</legend>
+<legend>assumePropsColor(Label)</legend>
 <YellowLabel1 text="Hello World!" />
 </fieldset>
-
-#### `displayName`
 
 By default, the `displayName` shown in React Dev Tools will be
 `assumeColor(Label)`, because `Label` is the `displayName` of the base component
@@ -80,12 +96,12 @@ aid debugging, but having none, will try to compute a reasonable value from
 their arguments.
 
 To override the `displayName` _wrapper_ we can provide the second, optional
-argument to `assume`:
+argument to `assumeProps`:
 
 ```tsx
-import {assume} from 'react-compinators'
+import {assumeProps} from 'react-compinators'
 
-const YellowLabel = assume(Label)({color: 'yellow'}, 'Yellow')
+const YellowLabel = assumeProps(Label)({color: 'yellow'}, 'Yellow')
 //                                                       ↑
 //                  Optional argument for displayName wrapper 
 
@@ -93,25 +109,37 @@ const YellowLabel = assume(Label)({color: 'yellow'}, 'Yellow')
 
 console.log(YellowLabel.displayName) // Yellow(Label)
 ```
-export const YellowLabel2 = assume(Label)({color: 'yellow'}, 'Yellow')
+export const YellowLabel2 = assumeProps(Label)({color: 'yellow'}, 'Yellow')
 
 <fieldset>
 <legend>Yellow(Label)</legend>
 <YellowLabel2 text="Hello World!" />
 </fieldset>
 
-Here is how it looks in React Dev Tools with a default (`assumeColor`) vs.
-custom `displayName` (`Yellow`):
+This is how it looks in React Dev Tools with a default `displayName`:
 
-![Dev Tools Screenshot](https://middle-ages.github.io/react-compinators-docs/docs/dev-tools-display-name.png)
+<img
+  src="https://middle-ages.github.io/react-compinators-docs/docs/dev-tools-display-name-default.png"
+  alt="Dev Tools default displayName"
+  style={{border: '2px inset', maxWidth: '20rem'}}
+/>
+
+But when we provide the `Yellow` argument to `assumeProps` we get:
+
+<img
+  src="https://middle-ages.github.io/react-compinators-docs/docs/dev-tools-display-name-custom.png"
+  alt="Dev Tools custom displayName"
+  style={{border: '2px inset', maxWidth: '20rem'}}
+/>
 
 All combinators follow this pattern of taking an optional value that will
 determine `displayName`.
 
-### 2. `assumeProp`
+#### 2. `assumeProp`
 
 When you need to partially apply only a single prop, `assumeProp` is a simpler
-variant of `assume`. Note that it too takes an optional `displayName` argument:
+variant of `assume`. Note that it takes an optional `displayName` argument as
+well:
 
 ```tsx
 import {assumeProp} from 'react-compinators'
@@ -130,42 +158,42 @@ export const YellowLabel3 = assumeProp(Label, 'color')('yellow', 'My')
 <YellowLabel3 text="Hello World!" />
 </fieldset>
 
-### 3. `unionVariants`
+#### 3. `unfoldProp`
 
 What if we wanted to partially apply _three_ variants of the button, one for
 each color?
 ```tsx
-import {assume} from 'react-compinators'
+import {assumeProp} from 'react-compinators'
 
-const GreenLabel  = assume(Label)({color: 'green'})
-const YellowLabel = assume(Label)({color: 'yellow'})
-const RedLabel    = assume(Label)({color: 'red'})
+export const GreenLabel  = assumeProp(Label, 'color')('green')
+export const YellowLabel = assumeProp(Label, 'color')('yellow')
+export const RedLabel    = assumeProp(Label, 'color')('red')
 
 <RedLabel    text="Red"/>
 <YellowLabel text="Yellow"/>
 <GreenLabel  text="Green"/>
 ```
 
-export const GreenLabel4 = assume(Label)({color: 'green'})
-export const YellowLabel4 = assume(Label)({color: 'yellow'})
-export const RedLabel4 = assume(Label)({color: 'red'})
+export const GreenLabel4 = assumeProp(Label, 'color')('green')
+export const YellowLabel4 = assumeProp(Label, 'color')('yellow')
+export const RedLabel4 = assumeProp(Label, 'color')('red')
 
 <fieldset>
-<legend>Calling <code>assume</code> <i>three</i> times</legend>
+<legend>Calling <code>assumeProp</code> <i>three</i> times</legend>
 <GreenLabel4  text="Green"/>
 <YellowLabel4 text="Yellow"/>
 <RedLabel4    text="Red"/>
 </fieldset>
 
-We could loop over the values, or we could use the `unionVariants` combinator.
+We could loop over the values, or we could use the `unfoldProp` combinator.
 It supports the common use case of creating a _variant per union member_, useful
-when we prefer _more components but less props_, over _less props but more
+when we prefer _more components but fewer props_, over _fewer props but more
 components_:
 ```tsx
 import {String} from 'effect'
-import {unionVariants} from 'react-compinators'
+import {unfoldProp} from 'react-compinators'
 
-const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(
+const [ GreenLabel, YellowLabel, RedLabel ] = unfoldProp(
   Label,             // Base component.
   'color',           // Prop that we will be setting.
 )(
@@ -181,7 +209,7 @@ const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(
 console.log(YellowLabel.displayName) // Yellow(Label)
 ```
 
-export const [GreenLabel5, YellowLabel5, RedLabel5] = unionVariants(
+export const [GreenLabel5, YellowLabel5, RedLabel5] = unfoldProp(
   Label, 'color',
 )(
   COLORS,
@@ -189,21 +217,23 @@ export const [GreenLabel5, YellowLabel5, RedLabel5] = unionVariants(
 ) 
 
 <fieldset>
-<legend><code>unionVariants</code></legend>
+<legend><code>unfoldProp</code></legend>
 <GreenLabel5  text="Green"/>
 <YellowLabel5 text="Yellow"/>
 <RedLabel5    text="Red"/>
 </fieldset>
 
-### 4. `modProp`
+### Map
+
+#### 1. `modProp`
 
 `modProp` is used to map over a component prop without changing its type.The
 returned component will be of the same type as the base component.
 
 Useful for example to add a CSS class to the a component without creating a new
-component or changing the component props at its call site. In this case it would
-act like `assume`, except instead of fixing a prop value, we are _adding_ fixed
-value to the prop.
+component, and without changing the component props at its call site. In this
+case it would act like `assumeProp`, except instead of fixing a prop value, we
+are _adding_ a fixed value to the prop.
 
 Here we convert our label into one that appends a question mark to the text:
 
@@ -225,16 +255,16 @@ export const QuestionLabel = pipe('?', String.concat, modProp(Label, 'text'))
 <QuestionLabel color="yellow" text="Hello World" />
 </fieldset>
 
-### 5. `mapProps`
+#### 2. `mapProps`
 
-When:
- 
+`modProps` is actually a special case of `mapProps`, useful when:
+
 1. You have a component that takes props of type `A`.
 2. But you want a component that takes props of type `B`.
 3. And the props you have are of type `B`.
 4. But you do have some way of converting `B` ⇒ `A`.
  
- For example lets convert a component that display a number into a component
+ For example let's convert a component that display a number into a component
  that displays character count for a given string:
  
  ```tsx
@@ -242,7 +272,7 @@ When:
  interface B { foo: string }
  interface A { bar: number }
  
- const ComponentA: FC<A> = ({ bar }) => <div>{bar + 1}</div>;
+ const ComponentA: FC<A> = ({ bar }) => <div>{bar.toString()}</div>;
  
  // The function mapping B ⇒ A
  const mapper = (a: B): A => ({ bar: a.foo.length })
@@ -250,19 +280,86 @@ When:
  // We now have a component of B
  const ComponentB: FC<B> = pipe(ComponentA, mapProps(mapper));
 
- <ComponentB foo="foo">
+ <ComponentB foo="Hello World!">
  ```
-export const ComponentA = ({bar}) => <div>{bar.toString()}</div>
-export const mapper = (a) => ({bar: a.foo.length})
-export const ComponentB = pipe(ComponentA, mapProps(mapper));
+export const ComponentA1 = ({bar}) => <div>{bar.toString()}</div>
+export const mapper1 = (a) => ({bar: a.foo.length})
+export const ComponentB1 = pipe(ComponentA1, mapProps(mapper1))
 
 <fieldset>
 <legend><code>mapProps(ComponentA)</code></legend>
-<ComponentB foo="Hello World!" />
+<ComponentB1 foo="Hello World!" />
 </fieldset>
 
+In this case we are renaming a prop and changing prop type, but `mapProps` can
+do anything as long as the types fit.
 
-## A note about `displayName`
+#### 3. `mapProp`
+
+When you don't need the full power of `mapProps`, map prop focuses on a single
+named prop, and can only change its value but _not_ the prop name.
+
+Here is the example of converting a component that displays numbers into one
+that display character count, but here the prop name is the same between base
+component and the one returned:
+
+ ```tsx
+ import {mapProp} from 'react-compinators'
+ interface B { foo: string }
+ interface A { foo: number }
+ 
+ const ComponentA: FC<A> = ({foo}) => <div>{foo.toString()}</div>;
+ const mapper = (foo: string): number => foo.length
+ const ComponentB: FC<B> = pipe(ComponentA, mapProp(mapper, 'foo'));
+
+ <ComponentB foo="Hello World!">
+ ```
+export const ComponentA2 = ({foo}) => <div>{foo.toString()}</div>
+export const mapper2 = foo => foo.length
+export const ComponentB2 = pipe(ComponentA2, mapProp(mapper2, 'foo'))
+
+<fieldset>
+<legend><code>mapProp(ComponentA)</code></legend>
+<ComponentB2 foo="Hello World!" />
+</fieldset>
+
+#### 4. `omitProps`
+
+When a parent component spreads its props to its children, there is usually some
+prop massaging required. When this requires _removal_ of props by name, you can
+convert your component into one that drops these props using `omitProps`.
+
+In the code below, the `<Parent>` component takes a pair of props while its
+child gets only a single prop. Instead of manipulating the props object, we
+convert the child into one that ignores the extra prop:
+
+```tsx
+import {omitProps} from 'react-compinators'
+
+interface ParentProps {text: string; number: number}
+interface ChildProps {text: string}
+
+const Child = ({text}: ChildProps) => <div>{text}</div>
+
+const OmitNumber = omitProps(Child, 'OmitNumber')('number')
+
+// No need to filter props: child is wrapped in a HOC that will
+// discard the extra prop.
+const Parent = (props: ParentProps) => (<OmitNumber {...props} >)
+
+<Parent text="Hello World!" number={123} />
+```
+
+export const Child = ({text}) => <div>{text}</div>
+export const OmitNumber = omitProps(Child, 'OmitNumber')('number')
+export const Parent = (props) => (<OmitNumber {...props} />)
+
+<fieldset>
+<legend><code>Parent » OmitNumber(Child)</code></legend>
+<Parent text="Hello World!" number={123} />
+</fieldset>
+
+### A note about `displayName`
 
 `displayName` is used mostly for debugging via [React Dev
 Tools](https://react.dev/learn/react-developer-tools). The convention for HOCs is:

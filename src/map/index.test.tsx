@@ -1,7 +1,7 @@
 import {render} from '@testing-library/react'
 import {pipe} from 'effect'
 import type {FC, JSX} from 'react'
-import {mapProps, modProp} from 'react-compinators'
+import {mapProp, mapProps, modProp} from 'react-compinators'
 
 interface LabelProps {
   text: string
@@ -29,30 +29,51 @@ describe('modProp', () => {
   })
 })
 
-describe('mapProps', () => {
+{
   interface NumericProps {
     number: number
     color: string
   }
 
-  const NumericLabel: FC<NumericProps> = pipe(
-    Label,
-    mapProps(
-      ({number, ...rest}) => ({
-        text: number.toString(),
-        ...rest,
-      }),
-      'Numeric',
-    ),
-  )
+  describe('mapProps', () => {
+    const NumericLabel: FC<NumericProps> = pipe(
+      Label,
+      mapProps(
+        ({number, ...rest}) => ({
+          text: number.toString(),
+          ...rest,
+        }),
+        'Numeric',
+      ),
+    )
 
-  test('basic', () => {
-    expect(iut(<NumericLabel color="orange" number={42} />, '42')).toHaveStyle({
-      color: 'orange',
+    test('basic', () => {
+      expect(
+        iut(<NumericLabel color="orange" number={42} />, '42'),
+      ).toHaveStyle({
+        color: 'orange',
+      })
+    })
+
+    test('displayName', () => {
+      expect(NumericLabel.displayName).toBe('Numeric(Label)')
     })
   })
 
-  test('displayName', () => {
-    expect(NumericLabel.displayName).toBe('Numeric(Label)')
+  describe('mapProp', () => {
+    const NumericLabel = pipe(
+      Label,
+      mapProp((n: number) => n.toString(), 'text'),
+    )
+
+    test('basic', () => {
+      expect(iut(<NumericLabel color="orange" text={42} />, '42')).toHaveStyle({
+        color: 'orange',
+      })
+    })
+
+    test('displayName', () => {
+      expect(NumericLabel.displayName).toBe('mapPropText(Label)')
+    })
   })
-})
+}

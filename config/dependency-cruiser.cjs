@@ -28,6 +28,11 @@ module.exports = {
           '[.]d[.]ts$', // TypeScript declaration files
           '(^|/)tsconfig[.]json$', // TypeScript config
           '(^|/)(?:babel|webpack)[.]config[.](?:js|cjs|mjs|ts|cts|mts|json)$', // other configs
+          '[.]test[.]ts',
+          '[.]test[.]tsx',
+          '[.]stories[.]tsx',
+          'src[/]test[.]setup[.]ts',
+          'src[/]main[.]ts',
         ],
       },
       to: {},
@@ -202,13 +207,13 @@ module.exports = {
     /* Which modules to exclude */
     exclude: {
       /* path: an array of regular expressions in strings to match against */
-      path: ['node_modules'],
+      path: '^(node_modules|.dev|config|storybook-static)',
     },
 
     /* Which modules to exclusively include (array of regular expressions in strings)
        dependency-cruiser will skip everything not matching this pattern
     */
-    // includeOnly : [''],
+    includeOnly: ['^src'],
 
     /* List of module systems to cruise.
        When left out dependency-cruiser will fall back to the list of _all_
@@ -220,7 +225,7 @@ module.exports = {
        are widely used, you can limit the moduleSystems to those.
      */
 
-    // moduleSystems: ['cjs', 'es6'],
+    moduleSystems: ['es6'],
 
     /* prefix for links in html and svg output (e.g. 'https://github.com/you/yourrepo/blob/main/'
        to open it on your online repo or `vscode://file/${process.cwd()}/` to 
@@ -304,7 +309,7 @@ module.exports = {
       /* List of conditions to check for in the exports field.
          Only works when the 'exportsFields' array is non-empty.
       */
-      conditionNames: ['import', 'require', 'node', 'default', 'types', 'test'],
+      conditionNames: ['cruiser'],
       /*
          The extensions, by default are the same as the ones dependency-cruiser
          can access (run `npx depcruise --info` to see which ones that are in

@@ -2,11 +2,6 @@
   "extends": ["./tsconfig.browser.json"],
   "compilerOptions": {
     "allowArbitraryExtensions": true,
-    "paths": {
-      "react-compinators": ["../src/index.ts"],
-      "#test": ["../src/test.ts"],
-      "#storybook": ["../src/storybook.ts"]
-    },
     "types": ["../src/internal.d.ts"]
   },
   "include": [

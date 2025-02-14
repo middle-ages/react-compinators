@@ -1,6 +1,4 @@
-import {Array, pipe} from 'effect'
-import {constant} from 'effect/Function'
-import {Simplify, type TupleOf} from 'effect/Types'
+import {Array, pipe, Types} from 'effect'
 import {FC} from 'react'
 import {displayNameFor, wrapDisplayName} from './displayName.ts'
 import {String} from './util.ts'
@@ -10,7 +8,7 @@ import {String} from './util.ts'
  * where the given prop of each component is partially applied to a different
  * member of the union.
  */
-export const unionVariants =
+export const unfoldProp =
   <Props extends object, Prop extends string & keyof Props>(
     Base: FC<Props>,
     propName: Prop,
@@ -21,10 +19,10 @@ export const unionVariants =
   ) => {
     const buildName: (value: Props[Prop]) => string =
       buildDisplayName === undefined
-        ? constant(`unionVariants${String.capitalize(propName)}`)
+        ? () => `unfoldProps${String.capitalize(propName)}`
         : buildDisplayName
 
-    return pipe(
+    const results = pipe(
       members,
       Array.map(member =>
         assumeProp(Base, propName)(
@@ -32,49 +30,50 @@ export const unionVariants =
           buildName(member as Props[Prop]),
         ),
       ),
-    ) as unknown as TupleOf<Union['length'], FC<Simplify<Omit<Props, Prop>>>>
+    ) as unknown as Types.TupleOf<
+      Union['length'],
+      FC<Types.Simplify<Omit<Props, Prop>>>
+    >
+
+    return results
   }
 
 /**
- * Just like {@link assume} but for a single prop.
+ * Just like {@link assumeProps} but for a single prop.
  * @typeParam BaseProps - Props type of base component.
  * @param Base - Base component that will be partially applied.
  * @param prop - prop name from `Base` props that be fixed to the given value.
  */
 export const assumeProp =
-  <BaseProps extends object, const Prop extends keyof BaseProps>(
-    Base: FC<BaseProps>,
+  <Props extends object, const Prop extends string & keyof Props>(
+    Base: FC<Props>,
     prop: Prop,
   ) =>
-  <Value extends BaseProps[Prop]>(
+  (
     /** Prop value that will be partially applied to the variant. */
-    value: Value,
+    value: Props[Prop],
     /**
      * Optional `displayName` wrapper will be added to base component
      * `displayName`. Default is computed from given prop names.
      */
     maybeNameWrapper?: string,
-  ): FC<Simplify<Omit<BaseProps, Prop>>> =>
-    assume(Base)({[prop]: value} as Partial<BaseProps>, maybeNameWrapper)
+  ) => {
+    const Component = (remaining: Omit<Props, Prop>) => (
+      <Base {...({...remaining, [prop]: value} as Props)} />
+    )
 
-/**
- * The type of props remaining from the total props after currying the given
- * partial props.
- * @typeParam BaseProps - Props type of base component.
- * @typeParam Props - Base component props that are fixed in the variant. Must
- * not include any props that are _not_ in the base component.
- */
-export type Assumed<
-  BaseProps extends object,
-  Props extends Partial<BaseProps>,
-> = Omit<BaseProps, keyof Props>
+    return pipe(
+      maybeNameWrapper ?? `assumeProp${String.capitalize(prop)}`,
+      wrapDisplayName(Component, Base),
+    ) as FC<Types.Simplify<Omit<Props, Prop>>>
+  }
 
 /**
  * Partially apply a subset of given component props.
  * @typeParam BaseProps - Props type of base component.
  * @param Base - Base component that will be partially applied.
  */
-export const assume =
+export const assumeProps =
   <BaseProps extends object>(Base: FC<BaseProps>) =>
   <const Props extends Partial<BaseProps>>(
     /**
@@ -87,8 +86,10 @@ export const assume =
      * `displayName`. Default is computed from given prop names.
      */
     maybeNameWrapper?: string,
-  ): FC<Simplify<Assumed<BaseProps, Props>>> => {
-    const Component = (remaining: Simplify<Assumed<BaseProps, Props>>) => {
+  ): FC<Types.Simplify<Assumed<BaseProps, Props>>> => {
+    const Component = (
+      remaining: Types.Simplify<Assumed<BaseProps, Props>>,
+    ) => {
       const allProps = {
         ...partialProperties,
         ...(remaining as Omit<BaseProps, keyof Props> | BaseProps),
@@ -97,7 +98,19 @@ export const assume =
     }
     return pipe(
       maybeNameWrapper ??
-        pipe(partialProperties, displayNameFor, String.prefix('assume')),
+        pipe(partialProperties, displayNameFor, String.prefix('assumeProps')),
       wrapDisplayName(Component, Base),
     )
   }
+
+/**
+ * The type of props remaining from the total props after currying the given
+ * partial props.
+ * @typeParam BaseProps - Props type of base component.
+ * @typeParam Props - Base component props that are fixed in the variant. Must
+ * not include any props that are _not_ in the base component.
+ */
+export type Assumed<
+  BaseProps extends object,
+  Props extends Partial<BaseProps>,
+> = Omit<BaseProps, keyof Props>

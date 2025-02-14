@@ -1,6 +1,6 @@
 import {render} from '@testing-library/react'
 import type {JSX} from 'react'
-import {assume, assumeProp, unionVariants} from 'react-compinators'
+import {assumeProp, assumeProps, unfoldProp} from 'react-compinators'
 
 const COLORS = ['green', 'yellow', 'red'] as const
 
@@ -18,8 +18,8 @@ const Label = ({text, color: background}: LabelProps) => (
 const iut = (element: JSX.Element) =>
   render(<div>{element}</div>).getByText('Hello World!')
 
-describe('assume', () => {
-  const YellowLabel = assume(Label)({color: 'yellow'})
+describe('assumeProps', () => {
+  const YellowLabel = assumeProps(Label)({color: 'yellow'})
 
   test('readme example', () => {
     expect(iut(<YellowLabel text="Hello World!" />)).toHaveStyle({
@@ -29,29 +29,27 @@ describe('assume', () => {
 
   describe('display name', () => {
     test('default', () => {
-      expect(YellowLabel.displayName).toBe('assumeColor(Label)')
+      expect(YellowLabel.displayName).toBe('assumePropsColor(Label)')
     })
 
     test('with suffix', () => {
       expect(
-        assume<LabelProps>(Label)({color: 'yellow'}, 'Yellow').displayName,
+        assumeProps<LabelProps>(Label)({color: 'yellow'}, 'Yellow').displayName,
       ).toBe('Yellow(Label)')
     })
   })
 })
 
 test('assumeProp', () => {
-  const YellowLabel = assumeProp(Label, 'color')('yellow')
+  const YellowLabel = assumeProp<LabelProps, 'color'>(Label, 'color')('yellow')
   expect(iut(<YellowLabel text="Hello World!" />)).toHaveStyle({
     background: 'yellow',
   })
 })
 
-describe('unionVariants', () => {
-  const [GreenLabel, YellowLabel, RedLabel] = unionVariants(
-    Label,
-    'color',
-  )(COLORS)
+describe('unfoldProp', () => {
+  const components = unfoldProp(Label, 'color')(COLORS)
+  const [GreenLabel, YellowLabel, RedLabel] = components
 
   test('green', () => {
     expect(iut(<GreenLabel text="Hello World!" />)).toHaveStyle({

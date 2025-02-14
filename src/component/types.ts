@@ -1,7 +1,7 @@
-import type {TypeLambda} from 'effect/HKT'
+import {HKT} from 'effect'
 import type {FC, ReactNode} from 'react'
 
-export interface FcTypeLambda extends TypeLambda {
+export interface FcTypeLambda extends HKT.TypeLambda {
   readonly type: SyncFC<this['Target']>
 }
 

@@ -40,22 +40,22 @@
     "ls:deps:dev": "pnpm ls --dev"
   },
   "dependencies": {
-    "@effect/typeclass": "^0.31.12",
-    "effect": "^3.12.12",
+    "@effect/typeclass": "^0.32.1",
+    "effect": "^3.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
     "@fast-check/vitest": "^0.1.5",
-    "@storybook/addon-actions": "^8.5.5",
-    "@storybook/addon-essentials": "^8.5.5",
-    "@storybook/addon-interactions": "^8.5.5",
-    "@storybook/addon-storysource": "^8.5.5",
-    "@storybook/blocks": "^8.5.5",
-    "@storybook/react": "^8.5.5",
-    "@storybook/react-vite": "^8.5.5",
-    "@storybook/test": "^8.5.5",
+    "@storybook/addon-actions": "^8.5.6",
+    "@storybook/addon-essentials": "^8.5.6",
+    "@storybook/addon-interactions": "^8.5.6",
+    "@storybook/addon-storysource": "^8.5.6",
+    "@storybook/blocks": "^8.5.6",
+    "@storybook/react": "^8.5.6",
+    "@storybook/react-vite": "^8.5.6",
+    "@storybook/test": "^8.5.6",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@tsconfig/strictest": "^2.0.5",
@@ -68,7 +68,7 @@
     "@vitest/coverage-v8": "^3.0.5",
     "css-loader": "^7.1.2",
     "dependency-cruiser": "^16.9.0",
-    "effect-ts-laws": "^1.2.5",
+    "effect-ts-laws": "^1.2.6",
     "eslint": "^9.20.1",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
@@ -80,7 +80,7 @@
     "globals": "^15.15.0",
     "happy-dom": "^17.1.0",
     "prettier": "^3.5.1",
-    "storybook": "^8.5.5",
+    "storybook": "^8.5.6",
     "typedoc": "^0.27.7",
     "typescript": "~5.7.3",
     "typescript-eslint": "^8.24.0",
@@ -105,24 +105,28 @@
     ".": {
       "import": {
         "types": "./src/index.d.ts",
+        "cruiser": "./src/index.ts",
         "import": "./src/index.js"
       }
     },
     "./test": {
       "import": {
         "types": "./src/test.d.ts",
+        "cruiser": "./src/test.ts",
         "import": "./src/test.js"
       }
     },
     "./storybook": {
       "import": {
         "types": "./src/storybook.d.ts",
+        "cruiser": "./src/storybook.ts",
         "import": "./src/storybook.js"
       }
     },
     "./test/*": {
       "import": {
         "types": "./src/test/*.d.ts",
+        "cruiser": "./src/test/*.ts",
         "import": "./src/test/*.js"
       }
     }
@@ -130,10 +134,12 @@
   "imports": {
     "#test": {
       "types": "./src/test.d.ts",
+      "cruiser": "./src/test.ts",
       "import": "./src/test.js"
     },
     "#storybook": {
       "types": "./src/storybook.d.ts",
+      "cruiser": "./src/storybook.ts",
       "import": "./src/storybook.js"
     }
   }

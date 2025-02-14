@@ -19,6 +19,12 @@
 
     "noEmit": true,
     "incremental": true,
-    "noErrorTruncation": true
+    "noErrorTruncation": true,
+
+    "paths": {
+      "react-compinators": ["../src/index.ts"],
+      "#test": ["../src/test.ts"],
+      "#storybook": ["../src/storybook.ts"]
+    }
   }
 }

@@ -5,5 +5,10 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: '.dev',
+    lib: {
+      entry: ['src/index.ts'],
+      name: 'react-compinators',
+      formats: ['es'],
+    },
   },
 })

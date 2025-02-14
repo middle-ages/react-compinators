@@ -1,5 +1,4 @@
-import {Array, pipe, Record} from 'effect'
-import {constant, flow} from 'effect/Function'
+import {Array, flow, Function, pipe, Record} from 'effect'
 import type {FC} from 'react'
 import {type AnyComponent} from './component.ts'
 import {String} from './util.ts'
@@ -33,7 +32,7 @@ export const modDisplayName =
 export const setDisplayName = <Component extends AnyComponent>(
   component: Component,
   displayName: string,
-): Component => pipe(displayName, constant, modDisplayName(component))
+): Component => pipe(displayName, Function.constant, modDisplayName(component))
 
 /**
  * Returns given component with its `displayName` wrapped by the given string
@@ -60,7 +59,7 @@ export const copyDisplayName = <Component extends AnyComponent>(
   component: Component,
   source: AnyComponent,
 ): Component =>
-  pipe(source, getDisplayName, constant, modDisplayName(component))
+  pipe(source, getDisplayName, Function.constant, modDisplayName(component))
 
 /** Build a `displayName` from the keys of the given props. */
 export const displayNameFor: (props: object) => string = flow(

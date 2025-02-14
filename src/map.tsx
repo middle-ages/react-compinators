@@ -1,9 +1,15 @@
-import {Contravariant as CT} from '@effect/typeclass'
-import {pipe, String} from 'effect'
-import {dual} from 'effect/Function'
+import {pipe, String, Struct} from 'effect'
 import type {FC} from 'react'
-import type {FcTypeLambda} from './component'
 import {wrapDisplayName} from './displayName'
+
+export const omitProps =
+  <Props extends object>(Base: FC<Props>, displayName = 'omitProps') =>
+  <const Names extends readonly [string, ...string[]]>(...names: Names) => {
+    const Component = (props: Props) => (
+      <Base {...(Struct.omit(...names)(props) as Props)} />
+    )
+    return pipe(displayName, wrapDisplayName(Component, Base))
+  }
 
 /**
  * Lifts a function that maps the prop type `B` into the prop type `A`, into a
@@ -55,8 +61,35 @@ export const mapProps =
   ) =>
   (Base: FC<A>): FC<B> => {
     const Component = (props: B) => <Base {...f(props)} />
-
     return pipe(displayName, wrapDisplayName(Component, Base))
+  }
+
+/**
+ * Just like `mapProps` but for a single prop. The component will be given its
+ * props unmodified, except for a single prop where the value will be the result
+ * of the given function. The given function is given the original prop value.
+ * @typeParam Prop - Type of prop name.
+ * @typeParam B - Type of given prop value.
+ * @typeParam A - Type of prop value as expected by the base component.
+ * @typeParam Props - Prop type of the base component.
+ * @param f - The function that will be run over the prop value.
+ * @param prop - The prop name to be mapped over.
+ * @param displayName - Optional `displayName` wrapper. Defaults to `mapProp`.
+ */
+export const mapProp =
+  <Prop extends string, B, A>(
+    f: (b: B) => A,
+    prop: Prop,
+    displayName = `mapProp${String.capitalize(prop)}`,
+  ) =>
+  <Props extends Record<Prop, A>>(
+    /** Base component that accepts a prop of type `Props`. */
+    Base: FC<Props>,
+  ): FC<Omit<Props, Prop> & Record<Prop, B>> => {
+    type NewProps = Omit<Props, Prop> & Record<Prop, B>
+    const mapper = (props: NewProps) =>
+      Object.assign({[prop]: f(props[prop])}, Struct.omit(props, prop)) as Props
+    return mapProps<NewProps, Props>(mapper, displayName)(Base)
   }
 
 /**
@@ -92,20 +125,3 @@ export const modProp =
       Base,
     )(maybeNameWrapper ?? `modProp${String.capitalize(propName)}`)
   }
-
-export const contramap: CT.Contravariant<FcTypeLambda>['contramap'] = dual(
-  2,
-  <A, B>(Base: FC<A>, f: (b: B) => A): FC<B> => {
-    const Component = (props: B) => <Base {...(f(props) as A & object)} />
-    return wrapDisplayName(Component, Base)('contramap')
-  },
-)
-
-/**
- * [Contravariant](https://github.com/Effect-TS/effect/blob/main/packages/typeclass/src/Contravariant.ts)
- * instance for React components.
- */
-export const Contravariant: CT.Contravariant<FcTypeLambda> = {
-  contramap,
-  imap: CT.imap<FcTypeLambda>(contramap),
-}
