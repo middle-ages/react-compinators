@@ -7,6 +7,7 @@ import {
   mapProp,
   mapProps,
   omitProps,
+  renameProp,
   unfoldProp
 } from 'react-compinators'
 
@@ -28,6 +29,7 @@ import {
     <li><a href="#2-mapprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html">API</a>)</li>
     <li><a href="#3-mapprop"><code>mapProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProp.html">API</a>)</li>
     <li><a href="#4-omitprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html">API</a>)</li>
+    <li><a href="#5-renameprop"><code>renameProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html">API</a>)</li>
   </ol>
   <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
 </ol>
@@ -359,10 +361,38 @@ export const Parent = (props) => (<OmitNumber {...props} />)
 <Parent text="Hello World!" number={123} />
 </fieldset>
 
+#### 5. `renameProp`
+
+Don't you hate it when you have the correct component, and the correct props,
+all except for a prop that is named differently? A couple of these can easily
+degrade a nice one-line function into a multiline mess of prop destructuring and
+massaging. Sometimes it is easier to change the _component_ so it will accept
+the renamed prop. `renameProp` takes a pair of names, one for the old and one
+for the new, and rename the prop in the given component:
+
+```tsx
+// Unfortunately, NOT Label props
+const props = {text: 'Hello World!', textColor: 'pink'}
+
+// The Label component with its color prop renamed to textColor
+const Component = pipe(Label, renameProp('textColor', 'color'))
+
+// Now we can use our props, even if the prop name is wrong
+<Component {...props} />
+```
+
+export const Component = pipe(Label, renameProp('textColor', 'color'))
+
+<fieldset>
+<legend><code>renamePropTextColorColor(Label)</code></legend>
+<Component textColor="pink" text="Hello World!" />
+</fieldset>
+
 ### A note about `displayName`
 
 `displayName` is used mostly for debugging via [React Dev
 Tools](https://react.dev/learn/react-developer-tools). The convention for HOCs is:
+
 ```text
 Original Component Name
             ↓   

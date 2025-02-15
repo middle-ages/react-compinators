@@ -36,6 +36,7 @@
     "nodenext",
     "omitprops",
     "pointcuts",
+    "renameprop",
     "serviceworker",
     "storysource",
     "Symbola",

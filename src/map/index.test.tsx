@@ -1,7 +1,7 @@
 import {render} from '@testing-library/react'
 import {pipe} from 'effect'
 import type {FC, JSX} from 'react'
-import {mapProp, mapProps, modProp} from 'react-compinators'
+import {mapProp, mapProps, modProp, renameProp} from 'react-compinators'
 
 interface LabelProps {
   text: string
@@ -74,6 +74,22 @@ describe('modProp', () => {
 
     test('displayName', () => {
       expect(NumericLabel.displayName).toBe('mapPropText(Label)')
+    })
+  })
+
+  describe('renameProp', () => {
+    const Component = pipe(Label, renameProp('textColor', 'color'))
+
+    test('basic', () => {
+      expect(
+        iut(<Component textColor="red" text="Hello World!" />, 'Hello World!'),
+      ).toHaveStyle({
+        color: 'red',
+      })
+    })
+
+    test('displayName', () => {
+      expect(Component.displayName).toBe('renamePropTextColorColor(Label)')
     })
   })
 }

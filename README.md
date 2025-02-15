@@ -1,4 +1,4 @@
-# λ⚛ React Compinators Tutorial
+# λ⚛ React Compinators
 
 A tiny library of functional utilities for composing React components:
 `compinators = Component Combinators`.
@@ -89,7 +89,8 @@ appear under the name `<Yellow(Label)>`.
 4. [`mapProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html)
 5. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
 6. [`omitProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html)
-7. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
+7. [`renameProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html)
+8. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
 
 ## Roadmap
 

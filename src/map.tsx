@@ -2,6 +2,34 @@ import {pipe, String, Struct} from 'effect'
 import type {FC} from 'react'
 import {wrapDisplayName} from './displayName.js'
 
+/**
+ *
+ * @param oldName - Old prop name. Must be present in the given props.
+ * @param newName - New prop name. Must be present in the props of the given component.
+ * @param displayName - Optional `displayName` wrapper. Defaults to
+ * `renameProp[OLD_NAME][NEW_NAME]`.
+ * @returns
+ */
+export const renameProp =
+  <const O extends string, const N extends string>(
+    oldName: O,
+    newName: N,
+    displayName = `renameProp${String.capitalize(oldName)}${String.capitalize(newName)}`,
+  ) =>
+  /* Base component will be given renamed prop. */
+  <Props extends Record<N, unknown>>(
+    Base: FC<Props>,
+  ): FC<Omit<Props, N> & Record<O, unknown>> => {
+    const Component = (oldProps: Omit<Props, N> & Record<O, unknown>) => {
+      const value = oldProps[oldName]
+      const rest = Struct.omit(oldName)(oldProps) as Omit<Props, O>
+      const props = {[newName]: value, ...rest} as Props
+      return <Base {...props} />
+    }
+    return pipe(displayName, wrapDisplayName(Component, Base))
+  }
+
+/** Omit the given prop names from for the given component. */
 export const omitProps =
   <Props extends object>(Base: FC<Props>, displayName = 'omitProps') =>
   <const Names extends readonly [string, ...string[]]>(...names: Names) => {
