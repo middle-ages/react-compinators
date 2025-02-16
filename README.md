@@ -67,13 +67,13 @@ const YellowLabel = ({text: string}) => (
 <YellowLabel text='Hello World!' />
 ```
 
-Using the `assume` combinator from this library, we have lighter alternative that avoids JSX:
+Using the `assumeProp` combinator from this library, we have lighter alternative that avoids JSX:
 
 ```tsx
-import {assume} from 'react-compinators'
+import {assumeProp} from 'react-compinators'
 import type {FC} from 'react'
 // Note correct computed type for YellowLabel props.
-const YellowLabel: FC<{text: string}> = assume(Label, {color: 'yellow'})
+const YellowLabel: FC<{text: string}> = assumeProp(Label, {color: 'yellow'})
 // Using:
 <YellowLabel text='Hello World!' />
 ```
