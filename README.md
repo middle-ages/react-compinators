@@ -12,8 +12,10 @@ Create _three_ new components by partially applying the `<Label>` component
 import {String} from 'effect'
 import {unionVariants} from 'react-compinators'
 
-const [ GreenLabel, YellowLabel, RedLabel ] = unionVariants(Label)(
+const [ GreenLabel, YellowLabel, RedLabel ] = unfoldProp(
+  Label,             // Component that we will wrap three times.
   'color',           // Prop that we will partially apply.
+)(
   COLORS,            // Array of union members.
   String.capitalize, // Optional function will be used to compute variant
                      // displayName from its `color` prop.

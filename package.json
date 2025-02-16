@@ -1,7 +1,7 @@
 {
   "name": "react-compinators",
   "description": "React component combinators",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "type": "module",
   "author": "Ran Eilam <ran@haag59.com> (https://middle-ages.github.io/)",
   "homepage": "https://github.com/middle-ages/react-compinators",
