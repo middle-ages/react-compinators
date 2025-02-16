@@ -83,6 +83,27 @@ supported by [React Dev Tools](https://react.dev/learn/react-developer-tools)
 so the debug experience of the `<YellowLabel>` should similar, except it will
 appear under the name `<Yellow(Label)>`.
 
+These types of functions can be helpful in all kinds of situations:
+
+1. [Cross-cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern).
+   For example adding authentication guards to components from different parts of
+   an application.
+2. When _more components but fewer props_ is preferable to
+   _fewer components but more props_. For example, when writing components
+   for a design system driven library, it is common to create a highly
+   configurable component, for example a `<Button>`, and then derive various
+   _variants_ from it, for example: `<PrimaryButton>` or `<SecondaryButton>`.
+   Functions like `withVariants` reduces boilerplate and clarifies intent for
+   such tasks.
+3. The functions here are all well known higher-order functions, for example
+   `curry`, that have been specialized for React components. This helps you take
+   pieces of components out of JSX and into your regular functional programming
+   pipelines. When a simple function would suffice, these combinators help your
+   stay in a single “world”, and leave the JSX handing the pure UI concerns.
+   Just like a `curry` combinator for _functions_ is useful enough to get a
+   name, even though you could manually curry any function, so too for
+   `assumeProps`.
+
 ## The Combinators
 
 1. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)
@@ -92,7 +113,9 @@ appear under the name `<Yellow(Label)>`.
 5. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
 6. [`omitProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html)
 7. [`renameProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html)
-8. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
+8. [`renameProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProps.html)
+9. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
+10. [`withVariants`](https://middle-ages.github.io/react-compinators-docs/docs/functions/withVariants.html)
 
 ## Roadmap
 

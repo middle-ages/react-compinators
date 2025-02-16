@@ -15,8 +15,7 @@ const Label = ({text, color: background}: LabelProps) => (
   <div style={{background}}>{text}</div>
 )
 
-const iut = (element: JSX.Element) =>
-  render(<div>{element}</div>).getByText('Hello World!')
+const iut = (element: JSX.Element) => render(element).getByText('Hello World!')
 
 describe('assumeProps', () => {
   const YellowLabel = assumeProps(Label)({color: 'yellow'})

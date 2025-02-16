@@ -29,6 +29,7 @@
     "displayname",
     "Eeuo",
     "Eilam",
+    "expando",
     "mapprop",
     "mapprops",
     "modprop",
@@ -36,7 +37,9 @@
     "nodenext",
     "omitprops",
     "pointcuts",
+    "prismjs",
     "renameprop",
+    "renameprops",
     "serviceworker",
     "storysource",
     "Symbola",
@@ -44,7 +47,8 @@
     "unfoldprop",
     "unionvariant",
     "unionvariants",
-    "vite"
+    "vite",
+    "withvariants"
   ],
   "eslint.probe": [
     "typescript",

@@ -8,7 +8,9 @@ import {
   mapProps,
   omitProps,
   renameProp,
-  unfoldProp
+  renameProps,
+  unfoldProp,
+  withVariants,
 } from 'react-compinators'
 
 <Unstyled>
@@ -23,6 +25,10 @@ import {
     <li><a href="#2-assumeprop"><code>assumeProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html">API</a>)</li>
     <li><a href="#3-unfoldprop"><code>unfoldProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html">API</a>)</li>
   </ol>
+  <li><a href="#variants"><code>Variants</code></a></li>
+  <ol>
+    <li><a href="#1-withvariants"><code>withVariants</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/withVariants.html">API</a>)</li>
+  </ol>
   <li><a href="#map"><code>Map</code></a></li>
   <ol>
     <li><a href="#1-modprop"><code>modProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html">API</a>)</li>
@@ -30,8 +36,9 @@ import {
     <li><a href="#3-mapprop"><code>mapProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProp.html">API</a>)</li>
     <li><a href="#4-omitprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html">API</a>)</li>
     <li><a href="#5-renameprop"><code>renameProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html">API</a>)</li>
+    <li><a href="#6-renameprops"><code>renameProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProps.html">API</a>)</li>
+    <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
   </ol>
-  <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
 </ol>
 
 ## Running Example
@@ -43,55 +50,57 @@ export type Color = (typeof COLORS)[number]
 
 interface LabelProps { text: string; color: Color }
 
-const Label = ({text, color: background}: LabelProps) => (
+const BaseLabel = ({text, color: background}: LabelProps) => (
   <div style={{background}}>{text}</div>
 )
 
-<Label text="Green"  color="green" />
-<Label text="Yellow" color="yellow" />
-<Label text="Red"    color="red" />
+<BaseLabel text="Green"  color="green" />
+<BaseLabel text="Yellow" color="yellow" />
+<BaseLabel text="Red"    color="red" />
 ```
 
 export const COLORS = ['red', 'yellow', 'green']
-export const Label = ({text, color: background}) => (
+export const BaseLabel = ({text, color: background}) => (
   <div style={{background, textAlign: 'center'}}>{text}</div>
 )
 
 <fieldset>
 <legend>Three Labels</legend>
-<Label text="Green"  color="green" />
-<Label text="Yellow" color="yellow" />
-<Label text="Red"    color="red" />
+<BaseLabel text="Green"  color="green" />
+<BaseLabel text="Yellow" color="yellow" />
+<BaseLabel text="Red"    color="red" />
 </fieldset>
 
 ## The Combinators
 
 ### Assume
 
+Functions for partially applying props to components.
+
 #### 1. `assumeProps`
 
-To partially apply a subset of the `<Label>` props, we can use
+To partially apply a subset of the `<BaseLabel>` props, we can use
 `assumeProps`(_base_)(partial props):
 ```tsx
 import {assumeProps} from 'react-compinators'
 
-const YellowLabel = assumeProps(Label)({color: 'yellow'})
+const YellowLabel = assumeProps(BaseLabel)({color: 'yellow'})
 
 <YellowLabel text="Hello World!" />
 
-console.log(YellowLabel.displayName) // assumePropsColor(Label)
+console.log(YellowLabel.displayName) // assumePropsColor(BaseLabel)
 ```
 
-export const YellowLabel1 = assumeProps(Label)({color: 'yellow'})
+export const YellowLabel1 = assumeProps(BaseLabel)({color: 'yellow'})
 
 <fieldset>
-<legend>assumePropsColor(Label)</legend>
+<legend>assumePropsColor(BaseLabel)</legend>
 <YellowLabel1 text="Hello World!" />
 </fieldset>
 
 By default, the `displayName` shown in React Dev Tools will be
-`assumeColor(Label)`, because `Label` is the `displayName` of the base component
-and we are partially applying a single prop called `color`.
+`assumeColor(BaseLabel)`, because `BaseLabel` is the `displayName` of the base
+component and we are partially applying a single prop called `color`.
 
 The combinators in this library will let you set an optional `displayName` to
 aid debugging, but having none, will try to compute a reasonable value from
@@ -103,18 +112,18 @@ argument to `assumeProps`:
 ```tsx
 import {assumeProps} from 'react-compinators'
 
-const YellowLabel = assumeProps(Label)({color: 'yellow'}, 'Yellow')
+const YellowLabel = assumeProps(BaseLabel)({color: 'yellow'}, 'Yellow')
 //                                                       ↑
 //                  Optional argument for displayName wrapper 
 
 <YellowLabel text="Hello World!" />
 
-console.log(YellowLabel.displayName) // Yellow(Label)
+console.log(YellowLabel.displayName) // Yellow(BaseLabel)
 ```
-export const YellowLabel2 = assumeProps(Label)({color: 'yellow'}, 'Yellow')
+export const YellowLabel2 = assumeProps(BaseLabel)({color: 'yellow'}, 'Yellow')
 
 <fieldset>
-<legend>Yellow(Label)</legend>
+<legend>Yellow(BaseLabel)</legend>
 <YellowLabel2 text="Hello World!" />
 </fieldset>
 
@@ -146,17 +155,17 @@ well:
 ```tsx
 import {assumeProp} from 'react-compinators'
 
-const YellowLabel = assumeProp(Label, 'color')('yellow', 'My')
+const YellowLabel = assumeProp(BaseLabel, 'color')('yellow', 'My')
 
 <YellowLabel text="Hello World!" />
 
-console.log(YellowLabel.displayName) // My(Label)
+console.log(YellowLabel.displayName) // My(BaseLabel)
 ```
 
-export const YellowLabel3 = assumeProp(Label, 'color')('yellow', 'My')
+export const YellowLabel3 = assumeProp(BaseLabel, 'color')('yellow', 'My')
 
 <fieldset>
-<legend>My(Label)</legend>
+<legend>My(BaseLabel)</legend>
 <YellowLabel3 text="Hello World!" />
 </fieldset>
 
@@ -167,18 +176,18 @@ each color?
 ```tsx
 import {assumeProp} from 'react-compinators'
 
-export const GreenLabel  = assumeProp(Label, 'color')('green')
-export const YellowLabel = assumeProp(Label, 'color')('yellow')
-export const RedLabel    = assumeProp(Label, 'color')('red')
+export const GreenLabel  = assumeProp(BaseLabel, 'color')('green')
+export const YellowLabel = assumeProp(BaseLabel, 'color')('yellow')
+export const RedLabel    = assumeProp(BaseLabel, 'color')('red')
 
 <RedLabel    text="Red"/>
 <YellowLabel text="Yellow"/>
 <GreenLabel  text="Green"/>
 ```
 
-export const GreenLabel4 = assumeProp(Label, 'color')('green')
-export const YellowLabel4 = assumeProp(Label, 'color')('yellow')
-export const RedLabel4 = assumeProp(Label, 'color')('red')
+export const GreenLabel4 = assumeProp(BaseLabel, 'color')('green')
+export const YellowLabel4 = assumeProp(BaseLabel, 'color')('yellow')
+export const RedLabel4 = assumeProp(BaseLabel, 'color')('red')
 
 <fieldset>
 <legend>Calling <code>assumeProp</code> <i>three</i> times</legend>
@@ -196,7 +205,7 @@ import {String} from 'effect'
 import {unfoldProp} from 'react-compinators'
 
 const [ GreenLabel, YellowLabel, RedLabel ] = unfoldProp(
-  Label,             // Base component.
+  BaseLabel,         // Base component.
   'color',           // Prop that we will be setting.
 )(
   COLORS,            // Array of union members.
@@ -208,11 +217,11 @@ const [ GreenLabel, YellowLabel, RedLabel ] = unfoldProp(
 <YellowLabel text="Yellow"/>
 <GreenLabel  text="Green"/>
 
-console.log(YellowLabel.displayName) // Yellow(Label)
+console.log(YellowLabel.displayName) // Yellow(BaseLabel)
 ```
 
 export const [GreenLabel5, YellowLabel5, RedLabel5] = unfoldProp(
-  Label, 'color',
+  BaseLabel, 'color',
 )(
   COLORS,
   String.capitalize,
@@ -225,7 +234,92 @@ export const [GreenLabel5, YellowLabel5, RedLabel5] = unfoldProp(
 <RedLabel5    text="Red"/>
 </fieldset>
 
+### Variants
+
+Functions for building component variants.
+
+#### 1. `withVariants`
+
+When building a family of variants from a base component, for example, besides
+building the various variants, there is the issue of _import ergonomics_.
+
+Every variant must be exported and then imported. A common cure is adding the variants as 
+[expando](https://developer.mozilla.org/en-US/docs/Glossary/Expando) props to
+the component function.
+
+Now instead of:
+
+```tsx
+import {Label, GreenLabel, YellowLabel, RedLabel} from 'Label'
+```
+
+Clients can import:
+
+```tsx
+import {Label} from 'Label'
+```
+
+And access the variants as props of the `<Label>` component, for example to
+access the `Green` variant:
+
+
+```tsx
+<Label.Green text="Hello World!"/>
+```
+
+`withVariants` help reduce the boilerplate required by the component author
+to achieve this _import ergonomics_. You define your variants and get back a
+single symbol you can export. All variants will be present as expando props, and
+the component itself will be customized to the given spec given under the 
+`default` key.
+
+Here is how we could export the `<BaseLabel>` variants, one per color, and
+partially apply the label so it shows `Hello World!` and only lets the user
+change `color`:
+
+```tsx
+// Label.tsx
+import {withVariants} from 'react-compinators'
+
+export const Label = withVariants(BaseLabel)({
+  // A data structure that defines four components
+  default: {text:  'Hello World!'},
+  Red:     {color: 'red'},
+  Yellow:  {color: 'yellow'},
+  Green:   {color: 'green'},
+})
+```
+export const Label1 = withVariants(BaseLabel)({
+  // A data structure that defines four components
+  default: {text: 'Hello World!'},
+  Red: {color: 'red'},
+  Yellow: {color: 'yellow'},
+  Green: {color: 'green'},
+})
+
+Which you could import and use with:
+
+```tsx
+import {Label} from 'Label'
+
+<Label color='green'/>
+<Label.Red text="red"/>
+<Label.Yellow text="yellow"/>
+<Label.Green text="green"/>
+
+```
+
+<fieldset>
+<legend><code><i>Four</i> variants from a single object</code></legend>
+<Label1 color='green'/>
+<Label1.Red text="red"/>
+<Label1.Yellow text="yellow"/>
+<Label1.Green text="green"/>
+</fieldset>
+
 ### Map
+
+Functions for mapping over component props.
 
 #### 1. `modProp`
 
@@ -243,17 +337,21 @@ Here we convert our label into one that appends a question mark to the text:
 import {String, pipe} from 'effect'
 import {modProp} from 'react-compinators'
 
-const QuestionLabel: typeof Label = pipe('?', String.concat, modProp(Label, 'text'))
+const QuestionLabel: typeof BaseLabel = pipe(
+  '?',
+  String.concat,
+  modProp(BaseLabel,'text'),
+)
 
 <QuestionLabel color="yellow" text="Hello World" />
 
-console.log(QuestionLabel.displayName) // mapPropText(Label)
+console.log(QuestionLabel.displayName) // mapPropText(BaseLabel)
 ```
 
-export const QuestionLabel = pipe('?', String.concat, modProp(Label, 'text'))
+export const QuestionLabel = pipe('?', String.concat, modProp(BaseLabel, 'text'))
 
 <fieldset>
-<legend><code>modPropText(Label)</code></legend>
+<legend><code>modPropText(BaseLabel)</code></legend>
 <QuestionLabel color="yellow" text="Hello World" />
 </fieldset>
 
@@ -311,7 +409,7 @@ component and the one returned:
  interface A { foo: number }
  
  const ComponentA: FC<A> = ({foo}) => <div>{foo.toString()}</div>;
- const mapper = (foo: string): number => foo.length
+ const mapper            = (foo: string): number => foo.length
  const ComponentB: FC<B> = pipe(ComponentA, mapProp(mapper, 'foo'));
 
  <ComponentB foo="Hello World!">
@@ -339,7 +437,7 @@ convert the child into one that ignores the extra prop:
 import {omitProps} from 'react-compinators'
 
 interface ParentProps {text: string; number: number}
-interface ChildProps {text: string}
+interface ChildProps _{text: string}
 
 const Child = ({text}: ChildProps) => <div>{text}</div>
 
@@ -371,21 +469,48 @@ the renamed prop. `renameProp` takes a pair of names, one for the old and one
 for the new, and rename the prop in the given component:
 
 ```tsx
-// Unfortunately, NOT Label props
-const props = {text: 'Hello World!', textColor: 'pink'}
+// Unfortunately, NOT BaseLabel props.
+const props = {text: 'Hello World!', textColor: 'green'}
 
-// The Label component with its color prop renamed to textColor
-const Component = pipe(Label, renameProp('textColor', 'color'))
+// The BaseLabel component with its color prop renamed to textColor.
+const Component = pipe(BaseLabel, renameProp('textColor', 'color'))
 
-// Now we can use our props, even if the prop name is wrong
+// Now we can use our props, even if the prop name is wrong.
 <Component {...props} />
 ```
 
-export const Component = pipe(Label, renameProp('textColor', 'color'))
+export const Component1 = pipe(BaseLabel, renameProp('textColor', 'color'))
 
 <fieldset>
-<legend><code>renamePropTextColorColor(Label)</code></legend>
-<Component textColor="pink" text="Hello World!" />
+<legend><code>renamePropTextColorColor(BaseLabel)</code></legend>
+<Component1 textColor="green" text="Hello World!" />
+</fieldset>
+
+#### 6. `renameProps`
+
+When you need to rename several props:
+
+```tsx
+// Unfortunately, all prop names are wrong.
+const props = {value: 'Hello World!', textColor: 'green'}
+
+// So we rename them on the component.
+const Component = pipe(
+  BaseLabel,
+  renameProps({textColor: 'color', value: 'text'}),
+)
+
+<Component {...props} />
+```
+
+export const Component2 = pipe(
+  BaseLabel,
+  renameProps({textColor: 'color', value: 'text'}),
+)
+
+<fieldset>
+<legend><code>renameProps(BaseLabel)</code></legend>
+<Component2 textColor="green" value="Hello World!" />
 </fieldset>
 
 ### A note about `displayName`
@@ -396,7 +521,7 @@ Tools](https://react.dev/learn/react-developer-tools). The convention for HOCs i
 ```text
 Original Component Name
             ↓   
-   Yellow(Label)
+   Yellow(BaseLabel)
       ↑
   HOC Name
 ```

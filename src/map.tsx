@@ -1,6 +1,64 @@
-import {pipe, String, Struct} from 'effect'
+import {pipe, String, Struct, type Types} from 'effect'
 import type {FC} from 'react'
 import {wrapDisplayName} from './displayName.js'
+
+/**
+ * The type of props accepted by the target component when wrapping a component
+ * with props `BaseProps` and a type-level record mapping target component prop
+ * names to base component prop names, for any prop names that are renamed.
+ */
+export type RenameProps<
+  Map extends Record<string, string>,
+  BaseProps extends Record<Map[string & keyof Map], unknown>,
+> = {
+  [K in keyof Map]: BaseProps[Map[string & K]]
+} & RenameRestProps<Map, BaseProps>
+
+/**
+ * The props left over when omitting from `BaseProps` the props that will be
+ * renamed according to `Map`.
+ */
+export type RenameRestProps<
+  Map extends Record<string, string>,
+  BaseProps extends Record<Map[string & keyof Map], unknown>,
+> = Omit<BaseProps, Map[keyof Map]>
+
+/**
+ * @typeParam Map - Type of new prop name ⇒ base component prop name map.
+ * @param map - Map of new prop names to mapped base component prop name.
+ * @param displayName - Optional `displayName` wrapper. Defaults to `renameProps`.
+ */
+export const renameProps =
+  <const Map extends Record<string, string>>(
+    map: Map,
+    displayName = 'renameProps',
+  ) =>
+  /* Base component will be given renamed props. */
+  <BaseProps extends Record<Map[string & keyof Map], unknown>>(
+    Base: FC<BaseProps>,
+  ): FC<Types.Simplify<RenameProps<Map, BaseProps>>> => {
+    type Props = RenameProps<Map, BaseProps>
+
+    const rename = (props: Props): BaseProps => {
+      const result = {} as BaseProps
+      for (const [key, value] of Object.entries(props)) {
+        if (key in map) {
+          result[map[key as string & keyof Map]] = value as never
+        } else {
+          result[key as keyof RenameRestProps<Map, BaseProps>] = props[
+            key as keyof Props
+          ] as never
+        }
+      }
+      return result
+    }
+
+    const Component = ((props: Props) => <Base {...rename(props)} />) as FC<
+      Types.Simplify<Props>
+    >
+
+    return pipe(displayName, wrapDisplayName(Component, Base))
+  }
 
 /**
  *

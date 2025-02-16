@@ -30,8 +30,8 @@ button {
 fieldset {
   max-width: 16rem;
   border-radius: var(--pad-4);
-  padding: var(--pad-4) !important;
-  margin: var(--pad-5) !important;
+  padding: var(--pad-3) !important;
+  margin: 0 var(--pad-4) var(--pad-3) var(--pad-4) !important;
 }
 
 li {
@@ -40,16 +40,23 @@ li {
 
 pre {
   background: #fafafc !important;
-  padding: var(--pad-4) !important;
+  padding: 0 0 var(--pad-3) 0 !important;
   margin: var(--pad-3) !important;
-}
-
-p,
-div {
-  margin: var(--pad-4) !important;
-  padding: var(--pad--3) !important;
+  button {
+    display: none !important;
+  }
 }
 
 legend {
   white-space: nowrap;
+}
+
+div {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+p {
+  margin: var(--pad-4) !important;
+  padding: var(--pad-4) !important;
 }

@@ -11,6 +11,8 @@
   --pad-3: calc(var(--font-size) / 3);
   --pad-4: calc(var(--font-size) / 2);
   --pad-5: calc(var(--font-size));
+  --pad-6: calc(var(--font-size) * 2);
+  --pad-7: calc(var(--font-size) * 3);
 
   --line-height: calc(var(--line-height-factor) * var(--font-size));
   --tall-line-height: calc(var(--tall-line-height-factor) * var(--font-size));
