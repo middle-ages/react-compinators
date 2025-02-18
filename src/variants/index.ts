@@ -5,7 +5,7 @@ import type {VariantDefs, VariantFc, VariantMap} from './types.js'
 
 /**
  * Build and inject variants into a component.
- * @typeParams Props - Props type for base component with no props fixed.
+ * @typeParam Props - Props type for base component with no props fixed.
  * @param component - Base component to inject variants into.
  */
 export const withVariants =

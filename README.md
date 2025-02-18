@@ -100,8 +100,8 @@ These types of functions can be helpful in all kinds of situations:
    pieces of components out of JSX and into your regular functional programming
    pipelines. When a simple function would suffice, these combinators help your
    stay in a single “world”, and leave the JSX handing the pure UI concerns.
-   Just like a `curry` combinator for _functions_ is useful enough to get a
-   name, even though you could manually curry any function, so too for
+   Just like a `curry` combinator for _functions_ is useful enough to deserve
+   its own name, even though you could manually curry any function, so too for
    `assumeProps`.
 
 ## The Combinators

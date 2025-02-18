@@ -12,8 +12,8 @@ import type {FC, ReactNode} from 'react'
  *   primary: {color: 'red'},
  *   secondary: {color: 'blue'},
  * }
- * @typeParams Names - Readonly array of variant names.
- * @typeParams Props - Props type for base component.
+ * @typeParam Names - Readonly array of variant names.
+ * @typeParam Props - Props type for base component.
  */
 export type VariantDefs<
   Names extends readonly string[],
@@ -28,8 +28,8 @@ export type VariantDefs<
  *   {color: string; text: string},
  *   VariantDefs<['primary', 'secondary'], {color: string}>
  * > = {primary: FC<{text: string}>; secondary: FC<{text: string}>}
- * @typeParams Props - Props type for base component.
- * @typeParams Defs - Type of variant definitions.
+ * @typeParam Props - Props type for base component.
+ * @typeParam Defs - Type of variant definitions.
  */
 export type VariantMap<
   Props extends object,
@@ -65,8 +65,8 @@ export type VariantMap<
  *     default: {text: 'Hello World!'}
  *   }
  * >
- * @typeParams Props - Props type for base component.
- * @typeParams Defs - Type of variant definitions.
+ * @typeParam Props - Props type for base component.
+ * @typeParam Defs - Type of variant definitions.
  */
 export type VariantFc<
   Props extends object,

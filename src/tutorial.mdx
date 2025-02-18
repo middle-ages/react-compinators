@@ -240,8 +240,8 @@ Functions for building component variants.
 
 #### 1. `withVariants`
 
-When building a family of variants from a base component, for example, besides
-building the various variants, there is the issue of _import ergonomics_.
+When building a family of variants from a base component, besides building the
+various variants, there is the issue of _import ergonomics_.
 
 Every variant must be exported and then imported. A common cure is adding the variants as 
 [expando](https://developer.mozilla.org/en-US/docs/Glossary/Expando) props to
@@ -297,7 +297,7 @@ export const Label1 = withVariants(BaseLabel)({
   Green: {color: 'green'},
 })
 
-Which you could import and use with:
+Then import and use with:
 
 ```tsx
 import {Label} from 'Label'
