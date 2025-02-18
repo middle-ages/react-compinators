@@ -89,12 +89,12 @@ I have found these functions helpful in all kinds of situations:
    - For example when different parts of an application require functionality
      such as:
      1. Authentication guards.
-     2. Memoizing component props in local storage so they are not lost on browser refresh.
+     2. Memoizing component props in local storage, lest they be lost on browser refresh.
      3. Logging
-   - And you would rather not change the source code of components involved.
+   - But you would rather not touch the source code of components involved.
 2. When _more components but fewer props_ is preferable to
    _fewer components but more props_.
-     - For example, when writing components for a design system driven library,
+     - For example, when writing components for a design-system driven library,
       it is common to create a highly configurable component, for example a
       `<Button>`, and then derive various _variants_ from it, for example:
       `<PrimaryButton>` or `<SecondaryButton>`.
@@ -103,17 +103,16 @@ I have found these functions helpful in all kinds of situations:
        - Functions like `withVariants` reduce boilerplate and clarify intent for
        such tasks.
      - Describing changes to components as _plain old data_ lets you manipulate
-       definitions in various ways, for example to customize a _color_, or to add
-       a debug panel overlay to all `children` of a component.
-3. The functions here are all well known higher-order functions, for example
+       definitions as _data_, for example to customize a _color_, or to add a
+       debug panel overlay to all `children` of a component.
+3. The functions here are all well-known higher-order functions, for example
    `curry`, that have been specialized for React components.
-   - This helps you take pieces of components out of JSX and into your regular
+   - This helps you take pieces of components out of JSX, and into your regular
      functional programming pipelines. When a simple function would suffice,
      these combinators help your stay in a single “world”, and leave the JSX
-     handing the pure UI concerns.
-   - Just like a `curry` combinator for _functions_ is useful enough to deserve
-     its own name, even though you could manually curry any function, so too for
-     `assumeProps`.
+     more focused on its UI concerns.
+   - Just as a `curry` combinator for _functions_ is useful enough to deserve
+     its own name, so too for `assumeProps` when dealing with React components.
 
 ## The Combinators
 
