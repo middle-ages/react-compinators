@@ -93,7 +93,7 @@ These types of functions can be helpful in all kinds of situations:
    for a design system driven library, it is common to create a highly
    configurable component, for example a `<Button>`, and then derive various
    _variants_ from it, for example: `<PrimaryButton>` or `<SecondaryButton>`.
-   Functions like `withVariants` reduces boilerplate and clarifies intent for
+   Functions like `withVariants` reduce boilerplate and clarifies intent for
    such tasks.
 3. The functions here are all well known higher-order functions, for example
    `curry`, that have been specialized for React components. This helps you take
