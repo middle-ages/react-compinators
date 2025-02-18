@@ -45,26 +45,33 @@ export type VariantMap<
  * // No prop changes on base component, two variants fix “color” prop:
  * VariantFc<
  *   {color: string; text: string},
- *   ['primary', 'secondary'],
- *   VariantDefs<['primary', 'secondary'], {color: string}>
+ *   {
+ *     Primary: {color: string}
+ *     Secondary: {color: string}
+ *   }
  * > = {
  *   (props: {color: string; text: string}) => Node
  *   primary: FC<{text: string}>
  *   secondary: FC<{text: string}>
- *   variantNames: ("primary" | "secondary")[]
+ *   variantNames: ("Primary" | "Secondary")[]
  * }
  *
  * // When fixing the “text” prop on the “default” variant, target
- * // component no longer takes this prop.
+ * // component no longer takes this prop:
  * VariantFc<
  *   {color: string; text: string}
  *   {
- *     (props: {color: string}) => Node // No “text” prop.
- *     primary: {color: 'red'}
- *     secondary: {color: 'yellow'}
- *     default: {text: 'Hello World!'}
+ *      Primary: {color: string}
+ *      Secondary: {color: string}
+ *      default: {text: string}
  *   }
- * >
+ * > = {
+ *   (props: {color: string}) => Node // No “text” prop.
+ *   // Note no “default” prop on target component as it is the default.
+ *   primary: FC<{text: string}>
+ *   secondary: FC<{text: string}>
+ *   variantNames: ("Primary" | "Secondary")[]
+ * }
  * @typeParam Props - Props type for base component.
  * @typeParam Defs - Type of variant definitions.
  */

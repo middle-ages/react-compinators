@@ -15,7 +15,7 @@ export const withVariants =
     const Defs extends VariantDefs<Names, Props>,
   >(
     defs: Defs,
-  ) =>
+  ): VariantFc<Props, Defs> =>
     Object.assign(
       ('default' in defs
         ? assumeProps(component)(defs.default as Partial<Props>)
@@ -30,7 +30,7 @@ const buildMap = <
 >(
   component: FC<Props>,
   defs: Defs,
-): VariantMap<Props, Defs> & {variantNames: Names} => {
+): VariantMap<Props, Defs> => {
   const names = filterDefault(defs) as Names
   const variantMap = {} as VariantMap<Props, Defs>
   for (const stringName of names) {

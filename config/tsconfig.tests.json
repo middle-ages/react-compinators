@@ -8,11 +8,13 @@
     "../src/**/*.test.ts",
     "../src/**/*.test.tsx",
     "../src/**/*.test-d.ts",
+    "../src/**/*.test-d.tsx",
     "../src/test.setup.ts",
     "../src/test.ts",
     "../src/test/**/*.ts",
     "../src/test/**/*.tsx",
     "../src/component/arbitrary.tsx",
-    "../src/component/equivalence.tsx"
+    "../src/component/equivalence.tsx",
+    "../src/variants/index.test-d.tsx"
   ]
 }
