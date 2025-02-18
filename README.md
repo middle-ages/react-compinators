@@ -83,26 +83,37 @@ supported by [React Dev Tools](https://react.dev/learn/react-developer-tools)
 so the debug experience of the `<YellowLabel>` should similar, except it will
 appear under the name `<Yellow(Label)>`.
 
-These types of functions can be helpful in all kinds of situations:
+I have found these functions helpful in all kinds of situations:
 
 1. [Cross-cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern).
-   For example adding authentication guards to components from different parts of
-   an application.
+   - For example when different parts of an application require functionality
+     such as:
+     1. Authentication guards.
+     2. Memoizing component props in local storage so they are not lost on browser refresh.
+     3. Logging
+   - And you would rather not change the source code of components involved.
 2. When _more components but fewer props_ is preferable to
-   _fewer components but more props_. For example, when writing components
-   for a design system driven library, it is common to create a highly
-   configurable component, for example a `<Button>`, and then derive various
-   _variants_ from it, for example: `<PrimaryButton>` or `<SecondaryButton>`.
-   Functions like `withVariants` reduce boilerplate and clarifies intent for
-   such tasks.
+   _fewer components but more props_.
+     - For example, when writing components for a design system driven library,
+      it is common to create a highly configurable component, for example a
+      `<Button>`, and then derive various _variants_ from it, for example:
+      `<PrimaryButton>` or `<SecondaryButton>`.
+       - These variants are often just different combinations of values for the
+           props of the `<Button>`.
+       - Functions like `withVariants` reduce boilerplate and clarify intent for
+       such tasks.
+     - Describing changes to components as _plain old data_ lets you manipulate
+       definitions in various ways, for example to customize a _color_, or to add
+       a debug panel overlay to all `children` of a component.
 3. The functions here are all well known higher-order functions, for example
-   `curry`, that have been specialized for React components. This helps you take
-   pieces of components out of JSX and into your regular functional programming
-   pipelines. When a simple function would suffice, these combinators help your
-   stay in a single “world”, and leave the JSX handing the pure UI concerns.
-   Just like a `curry` combinator for _functions_ is useful enough to deserve
-   its own name, even though you could manually curry any function, so too for
-   `assumeProps`.
+   `curry`, that have been specialized for React components.
+   - This helps you take pieces of components out of JSX and into your regular
+     functional programming pipelines. When a simple function would suffice,
+     these combinators help your stay in a single “world”, and leave the JSX
+     handing the pure UI concerns.
+   - Just like a `curry` combinator for _functions_ is useful enough to deserve
+     its own name, even though you could manually curry any function, so too for
+     `assumeProps`.
 
 ## The Combinators
 
