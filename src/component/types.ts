@@ -1,15 +1,11 @@
-import {HKT} from 'effect'
 import type {FC, ReactNode} from 'react'
 
-export interface FcTypeLambda extends HKT.TypeLambda {
-  readonly type: SyncFC<this['Target']>
-}
-
-export interface ComponentTransform<
-  FromProps extends object,
-  ToProps extends object,
-> {
-  (component: FC<FromProps>): FC<ToProps>
+/**
+ * A function that modifies a component of props that extend
+ * `BaseProps` without changing its type.
+ */
+export interface FcEndoOf<BaseProps extends object> {
+  <Props extends BaseProps>(component: FC<Props>): typeof component
 }
 
 export type AnyComponent = FC<any>

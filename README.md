@@ -118,14 +118,20 @@ I have found these functions helpful in all kinds of situations:
 
 1. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)
 2. [`assumeProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProps.html)
-3. [`mapProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProp.html)
-4. [`mapProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html)
-5. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
-6. [`omitProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html)
-7. [`renameProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html)
-8. [`renameProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProps.html)
-9. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
-10. [`withVariants`](https://middle-ages.github.io/react-compinators-docs/docs/functions/withVariants.html)
+3. [`modCssVar`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modCssVar.html)
+4. [`mapProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProp.html)
+5. [`mapProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/mapProps.html)
+6. [`modProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modProp.html)
+7. [`modStyle`](https://middle-ages.github.io/react-compinators-docs/docs/functions/modStyle.html)
+8. [`omitProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html)
+9. [`renameProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html)
+10. [`renameProps`](https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProps.html)
+11. [`requireProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/requireProp.html)
+12. [`unfoldProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/unfoldProp.html)
+13. [`withDefault`](https://middle-ages.github.io/react-compinators-docs/docs/functions/withDefault.html)
+14. [`withDefaultStyle`](https://middle-ages.github.io/react-compinators-docs/docs/functions/withDefaultStyle.html)
+15. [`withStyle`](https://middle-ages.github.io/react-compinators-docs/docs/functions/withStyle.html)
+16. [`withVariants`](https://middle-ages.github.io/react-compinators-docs/docs/functions/withVariants.html)
 
 ## Roadmap
 

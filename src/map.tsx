@@ -1,27 +1,60 @@
 import {pipe, String, Struct, type Types} from 'effect'
 import type {FC} from 'react'
 import {wrapDisplayName} from './displayName.js'
+import {
+  type RenameProps,
+  type RenameRestProps,
+  type WithDefaultProp,
+  type WithRequiredProp,
+} from './map/types.js'
+import {cloneComponent} from './util/react.js'
+
+export type {
+  RenameProps,
+  RenameRestProps,
+  WithDefaultProp,
+  WithRequiredProp,
+} from './map/types.js'
 
 /**
- * The type of props accepted by the target component when wrapping a component
- * with props `BaseProps` and a type-level record mapping target component prop
- * names to base component prop names, for any prop names that are renamed.
+ * Convert a component that takes an optional prop `prop` into a component where
+ * the prop is required. The opposite of {@link withDefault}.
+ * @typeParam Prop - Type of prop name. Must exist as optional field on `Base`
+ * props.
+ * @param prop - Name of optional prop to convert.
  */
-export type RenameProps<
-  Map extends Record<string, string>,
-  BaseProps extends Record<Map[string & keyof Map], unknown>,
-> = {
-  [K in keyof Map]: BaseProps[Map[string & K]]
-} & RenameRestProps<Map, BaseProps>
+export const requireProp =
+  <Prop extends string>(prop: Prop) =>
+  <BaseProps extends {[key in Prop]?: unknown}>(Base: FC<BaseProps>) =>
+    cloneComponent(
+      Base,
+      `requireProp${String.capitalize(prop)}(${Base.displayName ?? Base.name})`,
+    ) as FC<Types.Simplify<WithRequiredProp<Prop, BaseProps>>>
 
 /**
- * The props left over when omitting from `BaseProps` the props that will be
- * renamed according to `Map`.
+ * Convert a component that takes a required prop `prop` into a component where
+ * the prop is optional by providing a default value. The opposite of {@link requireProp}.
+ * When the returned component receives the prop, it will use it, but when none
+ * is given it will use the default given here.
+ * @typeParam Prop - Type of prop name. Must exist as a required field on `Base`
+ * props.
+ * @typeParam Value - Prop type.
+ * @param prop - Name of required prop to convert.
+ * @param value - Default value for prop.
  */
-export type RenameRestProps<
-  Map extends Record<string, string>,
-  BaseProps extends Record<Map[string & keyof Map], unknown>,
-> = Omit<BaseProps, Map[keyof Map]>
+export const withDefault =
+  <Prop extends string, Value>(prop: Prop, value: Value) =>
+  <BaseProps extends Record<Prop, Value>>(Base: FC<BaseProps>) =>
+    pipe(
+      Base,
+      mapProps(
+        (props: BaseProps) => ({
+          ...props,
+          [prop]: prop in props ? (props[prop] ?? value) : value,
+        }),
+        `withDefault${String.capitalize(prop)}`,
+      ),
+    ) as FC<Types.Simplify<WithDefaultProp<Prop, Value, BaseProps>>>
 
 /**
  * @typeParam Map - Type of new prop name ⇒ base component prop name map.

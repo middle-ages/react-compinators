@@ -7,6 +7,8 @@ import {
   modProp,
   renameProp,
   renameProps,
+  requireProp,
+  withDefault,
 } from 'react-compinators'
 
 const iut = (element: JSX.Element, expected: string) =>
@@ -99,16 +101,15 @@ const iut = (element: JSX.Element, expected: string) =>
   })
 }
 
-interface BaseProps {
-  foo: number
-  bar: string
-  baz: boolean
-}
-const Base = ({foo, bar, baz}: BaseProps) => (
-  <div>{[foo, bar, baz].map(v => v.toString()).join(':')}</div>
-)
-
 describe('renameProps', () => {
+  interface BaseProps {
+    foo: number
+    bar: string
+    baz: boolean
+  }
+  const Base = ({foo, bar, baz}: BaseProps) => (
+    <div>{[foo, bar, baz].map(v => v.toString()).join(':')}</div>
+  )
   const Target = pipe(Base, renameProps({FOO: 'foo', BAR: 'bar'}))
 
   test('basic', () => {
@@ -119,5 +120,52 @@ describe('renameProps', () => {
 
   test('displayName', () => {
     expect(Target.displayName).toBe('renameProps(Base)')
+  })
+})
+
+describe('requireProp', () => {
+  interface BaseProps {
+    foo: number
+    bar?: string
+  }
+  const Base = ({foo, bar}: BaseProps) => (
+    <div>
+      {[foo, bar]
+        .map(v => (v === undefined ? 'undefined' : v.toString()))
+        .join(':')}
+    </div>
+  )
+  const Target: FC<{foo: number; bar: string}> = pipe(Base, requireProp('bar'))
+
+  test('basic', () => {
+    expect(
+      iut(<Target foo={42} bar="Hello World!" />, '42:Hello World!'),
+    ).toBeInTheDocument()
+  })
+
+  test('displayName', () => {
+    expect(Target.displayName).toBe('requirePropBar(Base)')
+  })
+})
+
+describe('withDefault', () => {
+  interface BaseProps {
+    foo: number
+    bar: string
+  }
+  const Base = ({foo, bar}: BaseProps) => (
+    <div>{[foo, bar].map(v => v.toString()).join(':')}</div>
+  )
+  const Target: FC<{foo: number; bar?: string}> = pipe(
+    Base,
+    withDefault('bar', 'baz'),
+  )
+
+  test('basic', () => {
+    expect(iut(<Target foo={42} />, '42:baz')).toBeInTheDocument()
+  })
+
+  test('displayName', () => {
+    expect(Target.displayName).toBe('withDefaultBar(Base)')
   })
 })
