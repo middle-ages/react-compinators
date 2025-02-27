@@ -1,13 +1,14 @@
+import {pipe} from 'effect'
 import {type CSSProperties, type FC} from 'react'
 import type {FcEndoOf} from './component.js'
-import {modProp} from './map.js'
+import {modOptionalProp} from './map.js'
 import type {CssVarTransform, HasStyle, StyleTransform} from './style/types.js'
 
 /** Apply a transform to the `style` prop of a component. */
 export const modStyle =
-  (transform: StyleTransform) =>
-  <Props extends HasStyle>(Base: FC<Props>): typeof Base =>
-    modProp(Base, 'style')(transform)
+  (transform: StyleTransform, maybeNameWrapper?: string) =>
+  <Props extends HasStyle>(Base: FC<Props>) =>
+    pipe(Base, modOptionalProp('style', transform, maybeNameWrapper))
 
 /** Merge the given styles, overriding the keys given in component props. */
 export const withStyle = (overrideStyle: CSSProperties): FcEndoOf<HasStyle> =>
@@ -26,7 +27,7 @@ export const withDefaultStyle = (
  * component.
  */
 export const modCssVar = (
-  name: keyof CSSProperties,
+  name: string,
   transform: CssVarTransform,
 ): FcEndoOf<HasStyle> =>
   modStyle(style => {

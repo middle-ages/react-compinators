@@ -94,7 +94,7 @@ export const renameProps =
   }
 
 /**
- *
+ * Rename a single named prop.
  * @param oldName - Old prop name. Must be present in the given props.
  * @param newName - New prop name. Must be present in the props of the given component.
  * @param displayName - Optional `displayName` wrapper. Defaults to
@@ -216,25 +216,44 @@ export const mapProp =
  * `<A>(a: A) => A` over a named prop value. Useful when you can compute the new
  * value from the old one and nothing else, and you do not need to change the
  * prop type.
- * @typeParam Props - Props type of base component.
- * @typeParam Prop - Name of prop that will be modified.
- * @param Base - Base component that will get the modified props.
+ * @typeParam Prop - Type of modified prop name.
+ * @typeParam Value - Modified prop value type.
  * @param propName - Name of prop to modify.
+ * @param modify - The mapping function will be applied to the prop value.
+ * @param maybeNameWrapper - Optional `displayName` wrapper will be added to
+ * base component `displayName`. Default is computed modified given prop name.
  */
 export const modProp =
-  <Props extends object, Prop extends string & keyof Props>(
-    Base: FC<Props>,
+  <Prop extends string, Value>(
     propName: Prop,
-  ) =>
-  (
-    /** The mapping function will be applied to the prop value. */
-    modify: (value: Props[Prop]) => typeof value,
-    /**
-     * Optional `displayName` wrapper will be added to base component
-     * `displayName`. Default is computed modified given prop name.
-     */
+    modify: (value: Value) => Value,
     maybeNameWrapper?: string,
-  ): FC<Props> => {
+  ) =>
+  <Props extends Record<Prop, Value>>(
+    /** Component to modify. */
+    Base: FC<Props>,
+  ): typeof Base => {
+    const Component = (props: Props) => (
+      <Base {...({...props, [propName]: modify(props[propName])} as Props)} />
+    )
+
+    return wrapDisplayName(
+      Component,
+      Base,
+    )(maybeNameWrapper ?? `modProp${String.capitalize(propName)}`)
+  }
+
+/** Just like `modProp` but for _optional_ props. */
+export const modOptionalProp =
+  <Prop extends string, Value>(
+    propName: Prop,
+    modify: (value?: Value) => Value,
+    maybeNameWrapper?: string,
+  ) =>
+  <Props extends Partial<Record<Prop, Value>>>(
+    /** Component to modify. */
+    Base: FC<Props>,
+  ): typeof Base => {
     const Component = (props: Props) => (
       <Base {...({...props, [propName]: modify(props[propName])} as Props)} />
     )

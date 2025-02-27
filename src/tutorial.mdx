@@ -6,6 +6,7 @@ import {
   modProp,
   mapProp,
   mapProps,
+  modStyle,
   omitProps,
   renameProp,
   renameProps,
@@ -37,8 +38,13 @@ import {
     <li><a href="#4-omitprops"><code>mapProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/omitProps.html">API</a>)</li>
     <li><a href="#5-renameprop"><code>renameProp</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProp.html">API</a>)</li>
     <li><a href="#6-renameprops"><code>renameProps</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/renameProps.html">API</a>)</li>
-    <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
   </ol>
+  <li><a href="#style"><code>Style</code></a></li>
+  <ol>
+    <li><a href="#1-modstyle"><code>modStyle</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/modStyle.html">API</a>)</li>
+  </ol>
+  <li><a href="#composition">Composition</a></li>
+  <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
 </ol>
 
 ## Running Example
@@ -348,7 +354,7 @@ const QuestionLabel: typeof BaseLabel = pipe(
 console.log(QuestionLabel.displayName) // mapPropText(BaseLabel)
 ```
 
-export const QuestionLabel = pipe('?', String.concat, modProp(BaseLabel, 'text'))
+export const QuestionLabel = pipe(BaseLabel, modProp('text', String.concat('?')))
 
 <fieldset>
 <legend><code>modPropText(BaseLabel)</code></legend>
@@ -492,7 +498,7 @@ When you need to rename several props:
 
 ```tsx
 // Unfortunately, all prop names are wrong.
-const props = {value: 'Hello World!', textColor: 'green'}
+const props = {textColor: 'green', value: 'Hello World!'}
 
 // So we rename them on the component.
 const Component = pipe(
@@ -513,10 +519,101 @@ export const Component2 = pipe(
 <Component2 textColor="green" value="Hello World!" />
 </fieldset>
 
+### Style
+
+Functions for modifying the component style via its props.
+
+#### 1. `modStyle`
+
+The combinators in the `style` module specialize `modProp` for components that
+accept a `style` prop of type [CSSProperties](https://react.dev/learn/typescript#typing-style-props).
+
+`modStyle` will let you run a function over the incoming `style` prop of a
+component. For example if we have a styled label:
+
+```tsx
+import {CssProperties} from 'react'
+
+interface LabelProps {
+  text: string
+  style?: CSSProperties
+}
+
+const Label = ({text, style}: LabelProps) => (<div {...{style}}>{text}</div>)
+```
+
+We can transform it so that if the `background` style is `red` we will turn it
+`green` and vice versa, and if there is no such style we set it to `yellow`:
+
+```tsx
+const FlippedLabel = modStyle((style = {background: 'yellow'})  => ({
+  color:
+    style.background === 'red'
+      ? 'green'
+      : style.background === 'green'
+        ? 'red'
+        : 'yellow',
+
+}))
+
+<FlippedLabel text="red" style={{background: 'green'}} />
+<FlippedLabel text="green" style={{background: 'red'}} />
+<FlippedLabel text="yellow" />
+```
+
+export const Label = ({text, style}) => (<div {...{style}}>{text}</div>)
+
+export const FlippedLabel = modStyle((style = {background: 'yellow'}) => ({
+  background:
+    style.background === 'red'
+      ? 'green'
+      : style.background === 'green'
+        ? 'red'
+        : 'yellow',
+
+}))(Label)
+
+<fieldset>
+<legend><code>modStyle</code></legend>
+<FlippedLabel text="red" style={{background: 'green'}} />
+<FlippedLabel text="green" style={{background: 'red'}} />
+<FlippedLabel text="yellow" />
+</fieldset>
+
+### Composition
+
+The combinators can be composed as functions, for example in a pipe:
+
+```tsx
+const TextLabel = ({text}) => <div>{text}</div>
+
+const ValueQuestion = pipe(
+  TextLabel,
+  modProp('text', x => `${text}?`),
+  renameProp('text', 'value'),
+);
+
+<ValueQuestion value="What is your name">
+```
+
+export const TextLabel = ({text}) => <div>{text}</div>
+
+export const ValueQuestion = pipe(
+  TextLabel,
+  modProp('text', text => `${text}?`),
+  renameProp('text', 'value'),
+);
+
+<fieldset>
+<legend>Composing Combinators</legend>
+<ValueQuestion text="What is your name"/>
+</fieldset>
+
 ### A note about `displayName`
 
-`displayName` is used mostly for debugging via [React Dev
-Tools](https://react.dev/learn/react-developer-tools). The convention for HOCs is:
+`displayName` is used mostly for debugging via
+[React Dev Tools](https://react.dev/learn/react-developer-tools).
+The convention for HOCs is:
 
 ```text
 Original Component Name

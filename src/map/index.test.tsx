@@ -22,7 +22,10 @@ const iut = (element: JSX.Element, expected: string) =>
   const Label = ({text, color}: LabelProps) => <div style={{color}}>{text}</div>
 
   describe('modProp', () => {
-    const QuestionLabel = modProp(Label, 'text')(s => `${s}?`)
+    const QuestionLabel = pipe(
+      Label,
+      modProp('text', (text: string) => `${text}?`),
+    )
 
     test('basic', () => {
       expect(

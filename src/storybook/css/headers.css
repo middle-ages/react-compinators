@@ -29,12 +29,12 @@ h2 {
 
 h3 {
   padding: var(--pad-3) !important;
-  margin: var(--pad-4) 0 0 0 !important;
+  margin: var(--pad-6) 0 0 var(--pad-5) !important;
 }
 
 h4 {
   padding: var(--pad-2) !important;
-  margin: var(--pad-4) 0 0 0 !important;
+  margin: var(--pad-4) 0 0 var(--pad-6) !important;
   background: #f8f8ff;
 }
 
