@@ -589,7 +589,7 @@ const TextLabel = ({text}) => <div>{text}</div>
 
 const ValueQuestion = pipe(
   TextLabel,
-  modProp('text', x => `${text}?`),
+  modProp('text', text => `${text}?`),
   renameProp('value', 'text'),
 );
 
