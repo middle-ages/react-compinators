@@ -590,7 +590,7 @@ const TextLabel = ({text}) => <div>{text}</div>
 const ValueQuestion = pipe(
   TextLabel,
   modProp('text', x => `${text}?`),
-  renameProp('text', 'value'),
+  renameProp('value', 'text'),
 );
 
 <ValueQuestion value="What is your name">
@@ -601,12 +601,12 @@ export const TextLabel = ({text}) => <div>{text}</div>
 export const ValueQuestion = pipe(
   TextLabel,
   modProp('text', text => `${text}?`),
-  renameProp('text', 'value'),
+  renameProp('value', 'text'),
 );
 
 <fieldset>
 <legend>Composing Combinators</legend>
-<ValueQuestion text="What is your name"/>
+<ValueQuestion value="What is your name"/>
 </fieldset>
 
 ### A note about `displayName`
