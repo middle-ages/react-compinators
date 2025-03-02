@@ -4,7 +4,9 @@ import type {FC, JSX} from 'react'
 import {
   mapProp,
   mapProps,
+  modOptionalProp,
   modProp,
+  omitProps,
   renameProp,
   renameProps,
   requireProp,
@@ -172,3 +174,32 @@ describe('withDefault', () => {
     expect(Target.displayName).toBe('withDefaultBar(Base)')
   })
 })
+
+{
+  interface LabelProps {
+    text?: string
+    color: string
+  }
+  const Label = ({text, color}: LabelProps) => (
+    <div style={{color}}>{text ?? 'bar'}</div>
+  )
+
+  test('modOptionalProp', () => {
+    const Modded: FC<LabelProps> = pipe(
+      Label,
+      modOptionalProp('text', (text?: string) => text ?? 'baz'),
+    )
+
+    expect(iut(<Modded color="blue" />, 'baz')).toHaveStyle({
+      color: 'blue',
+    })
+  })
+
+  test('omitProps', () => {
+    const Omitted: FC<Omit<LabelProps, 'test'>> = omitProps(Label)('text')
+
+    expect(iut(<Omitted color="blue" />, 'bar')).toHaveStyle({
+      color: 'blue',
+    })
+  })
+}
