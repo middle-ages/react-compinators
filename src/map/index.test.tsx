@@ -161,13 +161,19 @@ describe('withDefault', () => {
   const Base = ({foo, bar}: BaseProps) => (
     <div>{[foo, bar].map(v => v.toString()).join(':')}</div>
   )
-  const Target: FC<{foo: number; bar?: string}> = pipe(
+  const Target: FC<{foo: number; bar?: string | undefined}> = pipe(
     Base,
     withDefault('bar', 'baz'),
   )
 
   test('basic', () => {
     expect(iut(<Target foo={42} />, '42:baz')).toBeInTheDocument()
+  })
+
+  test('undefined prop', () => {
+    expect(
+      iut(<Target foo={42} bar={undefined} />, '42:baz'),
+    ).toBeInTheDocument()
   })
 
   test('displayName', () => {
@@ -187,7 +193,7 @@ describe('withDefault', () => {
   test('modOptionalProp', () => {
     const Modded: FC<LabelProps> = pipe(
       Label,
-      modOptionalProp('text', (text?: string) => text ?? 'baz'),
+      modOptionalProp('text')((text?: string) => text ?? 'baz'),
     )
 
     expect(iut(<Modded color="blue" />, 'baz')).toHaveStyle({

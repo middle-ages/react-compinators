@@ -245,11 +245,8 @@ export const modProp =
 
 /** Just like `modProp` but for _optional_ props. */
 export const modOptionalProp =
-  <Prop extends string, Value>(
-    propName: Prop,
-    modify: (value?: Value) => Value,
-    maybeNameWrapper?: string,
-  ) =>
+  <Prop extends string>(propName: Prop) =>
+  <Value,>(modify: (value?: Value) => Value, maybeNameWrapper?: string) =>
   <Props extends Partial<Record<Prop, Value>>>(
     /** Component to modify. */
     Base: FC<Props>,

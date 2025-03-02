@@ -24,6 +24,7 @@ export default defineConfig({
         'src/component/**/*',
         'src/test/**/*',
         'src/storybook/**/*',
+        'src/**/types.ts',
         'src/**/*.test.ts',
         'src/**/*.test-d.ts',
         'src/**/*.test.tsx',

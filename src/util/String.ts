@@ -1,13 +1,7 @@
 import {String} from 'effect'
-import type {Pair} from './Pair.js'
+import type {Pair} from './types.js'
 
 export * from 'effect/String'
-
-/** Replace given string if it is empty. */
-export const replaceEmpty =
-  (replace: string) =>
-  (s: string): string =>
-    s === '' ? replace : s
 
 /** Surround a string with the given string pair. */
 export const surround =

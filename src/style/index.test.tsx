@@ -85,6 +85,12 @@ describe('modCssVar', () => {
     ).toHaveStyle({'--variant': 'secondary'})
   })
 
+  test('no style', () => {
+    expect(iut(<VarLabel text="secondary" />, 'secondary')).toHaveStyle({
+      '--variant': 'primary',
+    })
+  })
+
   test('var not present in props', () => {
     expect(
       iut(<VarLabel text="secondary" style={{color: 'green'}} />, 'secondary'),

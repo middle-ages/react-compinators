@@ -8,7 +8,7 @@ import type {CssVarTransform, HasStyle, StyleTransform} from './style/types.js'
 export const modStyle =
   (transform: StyleTransform, maybeNameWrapper?: string) =>
   <Props extends HasStyle>(Base: FC<Props>) =>
-    pipe(Base, modOptionalProp('style', transform, maybeNameWrapper))
+    pipe(Base, modOptionalProp('style')(transform, maybeNameWrapper))
 
 /** Merge the given styles, overriding the keys given in component props. */
 export const withStyle = (overrideStyle: CSSProperties): FcEndoOf<HasStyle> =>

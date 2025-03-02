@@ -5,7 +5,7 @@ import type {FC, ReactNode} from 'react'
  * `BaseProps` without changing its type.
  */
 export interface FcEndoOf<BaseProps extends object> {
-  <Props extends BaseProps>(component: FC<Props>): typeof component
+  <Props extends BaseProps>(component: FC<Props>): FC<Props>
 }
 
 export type AnyComponent = FC<any>

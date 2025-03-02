@@ -1,11 +1,6 @@
-import {Array, flow, Function, pipe, Record} from 'effect'
-import type {FC} from 'react'
+import {Array, flow, pipe, Record} from 'effect'
 import {type AnyComponent} from './component.js'
 import {String} from './util.js'
-
-/** Return `displayName` of a React component or `Anonymous` if none found. */
-export const getDisplayName = (source: FC): string =>
-  pipe(source.displayName ?? source.name, String.replaceEmpty('Anonymous'))
 
 /**
  * Update the `displayName` of the `component` argument with the result of
@@ -24,15 +19,9 @@ export const modDisplayName =
     source: AnyComponent = component,
   ) =>
   (f: (previous: string) => string): Component => {
-    component.displayName = pipe(source, getDisplayName, f)
+    component.displayName = f(source.displayName ?? source.name)
     return component
   }
-
-/** Returns given component with `displayName` set to the given string. */
-export const setDisplayName = <Component extends AnyComponent>(
-  component: Component,
-  displayName: string,
-): Component => pipe(displayName, Function.constant, modDisplayName(component))
 
 /**
  * Returns given component with its `displayName` wrapped by the given string
@@ -46,20 +35,12 @@ export const wrapDisplayName =
     component: Component,
     source: AnyComponent = component,
   ) =>
-  (wrapper: string): Component => {
-    return pipe(
+  (wrapper: string): Component =>
+    pipe(
       [`${wrapper}(`, ')'],
       String.surround,
       modDisplayName(component, source),
     )
-  }
-
-/** Copy `displayName` from one component to another. */
-export const copyDisplayName = <Component extends AnyComponent>(
-  component: Component,
-  source: AnyComponent,
-): Component =>
-  pipe(source, getDisplayName, Function.constant, modDisplayName(component))
 
 /** Build a `displayName` from the keys of the given props. */
 export const displayNameFor: (props: object) => string = flow(
