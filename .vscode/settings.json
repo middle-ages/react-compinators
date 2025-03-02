@@ -50,6 +50,8 @@
     "unionvariant",
     "unionvariants",
     "vite",
+    "withdefaultstyle",
+    "withstyle",
     "withvariants"
   ],
   "eslint.probe": [

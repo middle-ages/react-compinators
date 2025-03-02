@@ -11,6 +11,8 @@ import {
   renameProp,
   renameProps,
   unfoldProp,
+  withDefaultStyle,
+  withStyle,
   withVariants,
 } from 'react-compinators'
 
@@ -42,6 +44,8 @@ import {
   <li><a href="#style"><code>Style</code></a></li>
   <ol>
     <li><a href="#1-modstyle"><code>modStyle</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/modStyle.html">API</a>)</li>
+    <li><a href="#2-withstyle"><code>withStyle</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/withStyle.html">API</a>)</li>
+    <li><a href="#3-withdefaultstyle"><code>withDefaultStyle</code></a> (<a href="https://middle-ages.github.io/react-compinators-docs/docs/functions/withDefaultStyle.html">API</a>)</li>
   </ol>
   <li><a href="#composition">Composition</a></li>
   <li><a href="#a-note-about-displayname">A note about <code>displayName</code></a></li>
@@ -54,7 +58,7 @@ A simple label component we will use as a running example:
 export const COLORS = ['red', 'yellow', 'green'] as const
 export type Color = (typeof COLORS)[number]
 
-interface LabelProps { text: string; color: Color }
+interface LabelProps {text: string color: Color}
 
 const BaseLabel = ({text, color: background}: LabelProps) => (
   <div style={{background}}>{text}</div>
@@ -534,19 +538,19 @@ component. For example if we have a styled label:
 ```tsx
 import {CssProperties} from 'react'
 
-interface LabelProps {
+interface StyledProps {
   text: string
   style?: CSSProperties
 }
 
-const Label = ({text, style}: LabelProps) => (<div {...{style}}>{text}</div>)
+const Styled = ({text, style}: StyledProps) => (<div {...{style}}>{text}</div>)
 ```
 
 We can transform it so that if the `background` style is `red` we will turn it
 `green` and vice versa, and if there is no such style we set it to `yellow`:
 
 ```tsx
-const FlippedLabel = modStyle((style = {background: 'yellow'})  => ({
+const Flipped = modStyle((style = {background: 'yellow'})  => ({
   color:
     style.background === 'red'
       ? 'green'
@@ -554,16 +558,16 @@ const FlippedLabel = modStyle((style = {background: 'yellow'})  => ({
         ? 'red'
         : 'yellow',
 
-}))
+}))(Styled)
 
-<FlippedLabel text="red" style={{background: 'green'}} />
-<FlippedLabel text="green" style={{background: 'red'}} />
-<FlippedLabel text="yellow" />
+<Flipped text="red" style={{background: 'green'}} />
+<Flipped text="green" style={{background: 'red'}} />
+<Flipped text="yellow" />
 ```
 
-export const Label = ({text, style}) => (<div {...{style}}>{text}</div>)
+export const Styled1 = ({text, style}) => (<div {...{style}}>{text}</div>)
 
-export const FlippedLabel = modStyle((style = {background: 'yellow'}) => ({
+export const Flipped = modStyle((style = {background: 'yellow'}) => ({
   background:
     style.background === 'red'
       ? 'green'
@@ -571,13 +575,64 @@ export const FlippedLabel = modStyle((style = {background: 'yellow'}) => ({
         ? 'red'
         : 'yellow',
 
-}))(Label)
+}))(Styled1)
 
 <fieldset>
 <legend><code>modStyle</code></legend>
-<FlippedLabel text="red" style={{background: 'green'}} />
-<FlippedLabel text="green" style={{background: 'red'}} />
-<FlippedLabel text="yellow" />
+<Flipped text="red" style={{background: 'green'}} />
+<Flipped text="green" style={{background: 'red'}} />
+<Flipped text="yellow" />
+</fieldset>
+
+#### 2. `withStyle`
+
+When you just need to _add_ or _override_ style, you can use this specialization of
+`modStyle`:
+
+```tsx
+import {withStyle} from 'react-compinators'
+
+const Styled = ({text, style}) => (<div {...{style}}>{text}</div>)
+
+const BrightOnDark = withStyle({color: 'white', background: 'black'})(Styled)
+
+// “yellow” will be replaced by “white”
+<BrightOnDark text="Hello World!" style={{color: 'yellow'}} />
+```
+
+export const Styled2 = ({text, style}) => (<div {...{style}}>{text}</div>)
+
+export const BrightOnDark1 = withStyle({color: 'white', background: 'black'})(Styled2)
+
+<fieldset>
+<legend><code>withStyle</code></legend>
+<BrightOnDark1 text="Hello World!" style={{color: 'yellow'}} />
+</fieldset>
+
+#### 3. `withDefaultStyle`
+
+`withDefaultStyle` is the opposite of `withStyle`, in that given styles are
+merged with _lowest_ priority. Useful for setting default styles:
+
+
+```tsx
+import {withDefaultStyle} from 'react-compinators'
+
+const Styled = ({text, style}) => (<div {...{style}}>{text}</div>)
+
+const BrightOnDark = withDefaultStyle({color: 'white', background: 'black'})(Styled)
+
+// “yellow” will override “white”
+<BrightOnDark text="Hello World!" style={{color: 'yellow'}} />
+```
+
+export const Styled3 = ({text, style}) => (<div {...{style}}>{text}</div>)
+
+export const BrightOnDark2 = withDefaultStyle({color: 'white', background: 'black'})(Styled3)
+
+<fieldset>
+<legend><code>withStyle</code></legend>
+<BrightOnDark2 text="Hello World!" style={{color: 'yellow'}} />
 </fieldset>
 
 ### Composition

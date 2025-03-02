@@ -1,7 +1,7 @@
 {
   "name": "react-compinators",
   "description": "React component combinators",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "type": "module",
   "author": "Ran Eilam <ran@haag59.com> (https://middle-ages.github.io/)",
   "homepage": "https://github.com/middle-ages/react-compinators",
@@ -20,8 +20,8 @@
   ],
   "scripts": {
     "clean": "dev/clean",
-    "lint": "eslint --config config/eslint.config.js src",
-    "lint:fix": "eslint --config config/eslint.config.js --fix src",
+    "lint": "eslint --config config/eslint.config.js src index.ts",
+    "lint:fix": "eslint --config config/eslint.config.js --fix src index.ts",
     "typecheck": "tsc -b",
     "test": "vitest -c config/vitest.config.ts --reporter=verbose",
     "test:run": "vitest -c config/vitest.config.ts run",
