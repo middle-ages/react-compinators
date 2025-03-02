@@ -19,7 +19,7 @@ export const unfoldProp =
   ) => {
     const buildName: (value: Props[Prop]) => string =
       buildDisplayName === undefined
-        ? () => `unfoldProps${String.capitalize(propName)}`
+        ? () => `unfoldProp${String.capitalize(propName)}`
         : buildDisplayName
 
     const results = pipe(

@@ -1,7 +1,12 @@
 import {render} from '@testing-library/react'
 import {pipe} from 'effect'
 import type {CSSProperties, FC, JSX} from 'react'
-import {modStyle, withStyle} from 'react-compinators'
+import {
+  modCssVar,
+  modStyle,
+  withDefaultStyle,
+  withStyle,
+} from 'react-compinators'
 
 const iut = (element: JSX.Element, text: string) =>
   render(<div>{element}</div>).getByText(text)
@@ -49,11 +54,57 @@ describe('withStyle', () => {
 })
 
 describe('withDefaultStyle', () => {
-  const RedLabel: FC<LabelProps> = pipe(Label, withStyle({color: 'red'}))
+  const RedLabel: FC<LabelProps> = pipe(Label, withDefaultStyle({color: 'red'}))
 
   test('basic', () => {
-    expect(iut(<RedLabel text="red label" />, 'red label')).toHaveStyle({
-      color: 'red',
+    expect(
+      iut(<RedLabel text="red label" style={{color: 'green'}} />, 'red label'),
+    ).toHaveStyle({
+      color: 'green',
+    })
+  })
+})
+
+describe('modCssVar', () => {
+  const VarLabel: FC<LabelProps> = pipe(
+    Label,
+    modCssVar('variant', variant =>
+      variant === 'primary' ? 'secondary' : 'primary',
+    ),
+  )
+
+  test('basic', () => {
+    expect(
+      iut(
+        <VarLabel
+          text="secondary"
+          style={{'--variant': 'primary'} as CSSProperties}
+        />,
+        'secondary',
+      ),
+    ).toHaveStyle({'--variant': 'secondary'})
+  })
+
+  test('var not present in props', () => {
+    expect(
+      iut(<VarLabel text="secondary" style={{color: 'green'}} />, 'secondary'),
+    ).toHaveStyle({
+      color: 'green',
+      '--variant': 'primary',
+    })
+  })
+
+  test('var present but undefined', () => {
+    expect(
+      iut(
+        <VarLabel
+          text="secondary"
+          style={{'--variant': undefined} as CSSProperties}
+        />,
+        'secondary',
+      ),
+    ).toHaveStyle({
+      '--variant': 'primary',
     })
   })
 })

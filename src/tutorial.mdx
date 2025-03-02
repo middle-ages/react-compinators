@@ -640,6 +640,9 @@ export const BrightOnDark2 = withDefaultStyle({color: 'white', background: 'blac
 The combinators can be composed as functions, for example in a pipe:
 
 ```tsx
+import {pipe} from 'effect'
+import {modProp, renameProp} from 'react-compinators'
+
 const TextLabel = ({text}) => <div>{text}</div>
 
 const ValueQuestion = pipe(

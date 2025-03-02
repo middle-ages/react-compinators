@@ -7,7 +7,7 @@ export interface StyleTransform {
 
 /** Type of functions that transform an optional value of a CSS variable. */
 export interface CssVarTransform {
-  (value?: string | number): string
+  (value?: string | number): string | undefined | number
 }
 
 /**

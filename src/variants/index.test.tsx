@@ -22,30 +22,61 @@ export const Base: FC<BaseProps> = props => (
   </>
 )
 
-// Build three variants:
-// 1. Target - fixes bar prop, this is the base component with one prop fixed.
-// 2. Target.Foo - fixes foo prop.
-// 3. Target.BarBaz - fixes bar and baz props.
-const Target = withVariants(Base)({
-  // Our variant spec: definitions of props fixed by each variant.
-  Foo: {foo: 'bam'},
-  BarBaz: {bar: 123, baz: true},
-
-  // Definition of main variant, in our test named “Target”
-  default: {bar: 42},
-})
-
 const iut = <Props extends object>(actual: ReactNode) =>
   JSON.parse(
     render(actual).baseElement.firstElementChild?.textContent ?? '{}',
   ) as Props
 
-describe('withVariants', () => {
+describe('with default', () => {
+  // Build three variants:
+  // 1. Target - fixes bar prop, this is the base component with one prop fixed.
+  // 2. Target.Foo - fixes foo prop.
+  // 3. Target.BarBaz - fixes bar and baz props.
+  const Target = withVariants(Base)({
+    // Our variant spec: definitions of props fixed by each variant.
+    Foo: {foo: 'bam'},
+    BarBaz: {bar: 123, baz: true},
+
+    // Definition of main variant, in our test named “Target”
+    default: {bar: 42},
+  })
+
   test('main variant', () => {
     expect(iut(<Target foo="quux" baz />)).toEqual({
       foo: 'quux',
-      baz: true,
       bar: 42,
+      baz: true,
+    })
+  })
+
+  test('Foo variant', () => {
+    expect(iut(<Target.Foo bar={999} baz={false} />)).toEqual({
+      foo: 'bam',
+      bar: 999,
+      baz: false,
+    })
+  })
+
+  test('BarBaz variant', () => {
+    expect(iut(<Target.BarBaz foo="barBaz" />)).toEqual({
+      foo: 'barBaz',
+      bar: 123,
+      baz: true,
+    })
+  })
+})
+
+describe('no default', () => {
+  const Target = withVariants(Base)({
+    Foo: {foo: 'bam'},
+    BarBaz: {bar: 123, baz: true},
+  })
+
+  test('main variant', () => {
+    expect(iut(<Target foo="quux" bar={123} baz />)).toEqual({
+      foo: 'quux',
+      baz: true,
+      bar: 123,
     })
   })
 
