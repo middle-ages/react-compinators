@@ -1,26 +1,24 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "../node_modules/.tmp/tsconfig.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
 
     "rootDir": "..",
     "moduleResolution": "nodenext",
     "module": "NodeNext",
-    "skipLibCheck": true,
+    "incremental": true,
+    "noErrorTruncation": true,
+
     "allowJs": true,
     "checkJs": false,
 
-    "isolatedModules": true,
     "moduleDetection": "force",
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "noUncheckedSideEffectImports": true,
 
-    "incremental": true,
-    "noErrorTruncation": true,
-
     "paths": {
-      "react-compinators": ["../src/index.ts"],
+      "react-compinators": ["../index.ts"],
       "#test": ["../src/test.ts"],
       "#storybook": ["../src/storybook.ts"]
     }
