@@ -114,7 +114,13 @@ I have found these functions helpful in all kinds of situations:
    - Just as a `curry` combinator for _functions_ is useful enough to deserve
      its own name, so too for `assumeProps` when dealing with React components.
 
-## The Combinators
+## Features
+
+A [Contravariant](https://github.com/Effect-TS/effect/blob/main/packages/typeclass/src/Contravariant.ts)
+instance for [Effect](https://effect.website/) and a bunch of combinators. If
+you squint hard you will see they are all just specializations of `mapProps`:
+
+### The Combinators
 
 1. [`appendChildren`](https://middle-ages.github.io/react-compinators-docs/docs/functions/appendChildren.html)
 2. [`assumeProp`](https://middle-ages.github.io/react-compinators-docs/docs/functions/assumeProp.html)

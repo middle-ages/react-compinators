@@ -69,7 +69,7 @@ export const renameProps =
   /* Base component will be given renamed props. */
   <BaseProps extends Record<Map[string & keyof Map], unknown>>(
     Base: FC<BaseProps>,
-  ): FC<Types.Simplify<RenameProps<Map, BaseProps>>> => {
+  ) => {
     type Props = RenameProps<Map, BaseProps>
 
     const rename = (props: Props): BaseProps => {
@@ -86,11 +86,9 @@ export const renameProps =
       return result
     }
 
-    const Component = ((props: Props) => <Base {...rename(props)} />) as FC<
-      Types.Simplify<Props>
+    return pipe(Base, mapProps(rename, displayName)) as FC<
+      Types.Simplify<RenameProps<Map, BaseProps>>
     >
-
-    return pipe(displayName, wrapDisplayName(Component, Base))
   }
 
 /**
