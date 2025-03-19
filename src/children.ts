@@ -1,9 +1,9 @@
 import {pipe} from 'effect'
 import type {PropsWithChildren, ReactNode} from 'react'
 import type {ChildrenTransform} from './children/types.js'
-import type {FcEndoOf} from './component.js'
 import {modOptionalProp} from './map.js'
 import {Array} from './util.js'
+import type {FcEndoOf} from './util.js'
 export type * from './children/types.js'
 
 /**

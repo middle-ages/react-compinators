@@ -1,8 +1,10 @@
 import {pipe} from 'effect'
 import {type CSSProperties, type FC} from 'react'
-import type {FcEndoOf} from './component.js'
 import {modOptionalProp} from './map.js'
 import type {CssVarTransform, HasStyle, StyleTransform} from './style/types.js'
+import type {FcEndoOf} from './util.js'
+
+export type * from './style/types.js'
 
 /** Apply a transform to the `style` prop of a component. */
 export const modStyle =

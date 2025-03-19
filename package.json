@@ -1,7 +1,7 @@
 {
   "name": "react-compinators",
   "description": "React component combinators",
-  "version": "1.0.34",
+  "version": "1.0.36",
   "type": "module",
   "author": "Ran Eilam <ran@haag59.com> (https://middle-ages.github.io/)",
   "homepage": "https://github.com/middle-ages/react-compinators",
@@ -32,13 +32,12 @@
     "storybook": "storybook dev -p 6006",
     "build:types": "tsc -p config/tsconfig.lib.json",
     "build:vite": "vite build -c config/vite.config.ts",
-    "build:api": "typedoc --options config/typedoc.json",
+    "build:docs": "typedoc --options config/typedoc.json",
     "build:storybook": "storybook build",
     "build:all": "dev/build-all",
     "build:clean": "dev/build-clean",
     "publish:docs": "dev/publish-docs",
     "npm": "dev/publish",
-    "graph:dependencies": "dev/graph-dependencies",
     "ls:deps": "pnpm ls --prod",
     "ls:deps:dev": "pnpm ls --dev"
   },

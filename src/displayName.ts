@@ -1,5 +1,5 @@
 import {Array, flow, pipe, Record} from 'effect'
-import {type AnyComponent} from './component.js'
+import type {AnyComponent} from './util.js'
 import {String} from './util.js'
 
 /**
