@@ -85,8 +85,8 @@ importers:
         specifier: ^16.10.1
         version: 16.10.1
       effect-ts-laws:
-        specifier: ^1.3.3
-        version: 1.3.3(@effect/typeclass@0.33.7(effect@3.14.7))(@fast-check/vitest@0.2.0(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1)))(effect@3.14.7)(fast-check@4.1.1)(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1))
+        specifier: ^1.3.5
+        version: 1.3.5(@effect/typeclass@0.33.7(effect@3.14.7))(@fast-check/vitest@0.2.0(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1)))(effect@3.14.7)(fast-check@4.1.1)(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1))
       eslint:
         specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
@@ -1588,8 +1588,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  effect-ts-laws@1.3.3:
-    resolution: {integrity: sha512-jGKLSOIyu71uquUmbNTw8A63AHz8e1801QGjJyGBKT8JqjsX6jTVYKVFusCJCQ5UesXRgDg8JVN42FzmI8r62w==}
+  effect-ts-laws@1.3.5:
+    resolution: {integrity: sha512-PJtmyLYqs9Y2dJFUIAe/AnQ5pab+rLLxdrksjJSxb5Bac4iytFQ7np+pctnD6yl9nWpXdee0i2nQBs7O+b6IEg==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@effect/typeclass': ^0.33.7
@@ -4935,7 +4935,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  effect-ts-laws@1.3.3(@effect/typeclass@0.33.7(effect@3.14.7))(@fast-check/vitest@0.2.0(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1)))(effect@3.14.7)(fast-check@4.1.1)(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1)):
+  effect-ts-laws@1.3.5(@effect/typeclass@0.33.7(effect@3.14.7))(@fast-check/vitest@0.2.0(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1)))(effect@3.14.7)(fast-check@4.1.1)(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1)):
     dependencies:
       '@effect/typeclass': 0.33.7(effect@3.14.7)
       '@fast-check/vitest': 0.2.0(vitest@3.1.1(@types/node@22.14.0)(happy-dom@17.4.4)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.1))
