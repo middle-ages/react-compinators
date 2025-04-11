@@ -1,6 +1,6 @@
-import {DummyButton} from '#test'
-import {action} from '@storybook/addon-actions'
-import type {Meta, StoryObj} from '@storybook/react'
+import {DummyButton} from '../test.js'
+import {action} from 'storybook/actions'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {withVariants} from 'react-compinators'
 
 const Button = withVariants(DummyButton)({

@@ -1,9 +1,7 @@
 {
   "extends": ["./tsconfig.browser.json"],
   "compilerOptions": {
-    "noEmit": true,
-    "allowArbitraryExtensions": true,
-    "types": ["../src/internal.d.ts"]
+    "noEmit": true
   },
   "include": [
     "../**/*.stories.ts",

@@ -3,8 +3,4 @@
 set -Eeuo pipefail
 
 pnpm build:clean
-
-cd dist
-cp ../README.md ../package.json ~/.npmrc .
-pnpm install
 pnpm publish

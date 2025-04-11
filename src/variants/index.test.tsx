@@ -1,5 +1,5 @@
 import {render} from '@testing-library/react'
-import {FC, type ReactNode} from 'react'
+import {type FC, type ReactNode} from 'react'
 import {withVariants} from 'react-compinators'
 
 interface BaseProps {

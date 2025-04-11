@@ -1,7 +1,7 @@
 import {pipe} from 'effect'
 import {
   contravariantLaws,
-  ContravariantTypeLambda,
+  type ContravariantTypeLambda,
   unfoldPropsGiven,
 } from 'effect-ts-laws'
 import {testLawSets} from 'effect-ts-laws/vitest'

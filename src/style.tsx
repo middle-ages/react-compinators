@@ -34,7 +34,10 @@ export const modCssVar = (
 ): FcEndoOf<HasStyle> =>
   modStyle(style => {
     const key = `--${name}` as keyof CSSProperties
-    const value =
-      style === undefined ? undefined : key in style ? style[key] : undefined
-    return {...style, [key]: transform(value)}
+    return {
+      ...style,
+      [key]: transform(
+        style === undefined || !(key in style) ? undefined : style[key],
+      ),
+    }
   })

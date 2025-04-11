@@ -1,34 +1,31 @@
-/* eslint-disable */
-import eslint from '@eslint/js'
-import allPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
+import * as eslint from '@eslint/js'
+import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import * as react from 'eslint-plugin-react'
+import * as reactHooks from 'eslint-plugin-react-hooks'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import * as globals from 'globals'
+import {globalIgnores} from 'eslint/config'
+import tslint from 'typescript-eslint'
+import sonarjs from 'eslint-plugin-sonarjs'
 
-const {languageOptions: _, ...prettierRecommended} = allPrettierRecommended
-
-export default tseslint.config(
-  {
-    ignores: ['../node_modules', '../dist', 'dependency-cruiser.cjs'],
-  },
-
-  {
-    files: ['**/*.{ts,tsx}'],
-  },
+const config = tslint.config(
+  globalIgnores([
+    '../node_modules',
+    '../dist',
+    './dependency-cruiser.cjs',
+    '../storybook_static',
+  ]),
 
   eslint.configs.recommended,
-  tseslint.configs.strictTypeChecked,
-  eslintPluginUnicorn.configs['flat/recommended'],
+  ...tslint.configs.recommended,
+  eslint.configs.recommended,
+  tslint.configs.strictTypeChecked,
+  eslintPluginUnicorn.configs.recommended,
+  sonarjs.configs.recommended,
   prettierRecommended,
-
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
 
   {
     languageOptions: {
-      ...react.configs.flat.recommended.languageOptions,
       parserOptions: {
         projectService: true,
         ecmaVersion: 'latest',
@@ -40,16 +37,19 @@ export default tseslint.config(
       globals: {
         ...globals.serviceworker,
         ...globals.browser,
+        ...globals.vitest,
       },
     },
+  },
 
+  {
+    ...react.configs.flat['jsx-runtime'],
+    ...react.configs.flat['recommended'],
+    settings: {react: {version: '19.0'}},
     plugins: {
       react,
       'react-hooks': reactHooks,
     },
-
-    settings: {react: {version: '19.0'}},
-
     rules: {
       ...reactHooks.configs.recommended.rules,
       'unicorn/prevent-abbreviations': 'off',
@@ -71,4 +71,17 @@ export default tseslint.config(
       ],
     },
   },
+
+  {
+    files: ['../**/*.test.ts', '../**/*.test-d.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+        ...globals.browser,
+        ...globals.vitest,
+      },
+    },
+  },
 )
+
+export default config

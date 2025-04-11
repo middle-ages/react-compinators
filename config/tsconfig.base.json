@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+    "outDir": "../dist",
 
     "rootDir": "..",
     "moduleResolution": "nodenext",
@@ -13,14 +13,9 @@
     "checkJs": false,
 
     "moduleDetection": "force",
-    "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "noUncheckedSideEffectImports": true,
-
-    "paths": {
-      "react-compinators": ["../index.ts"],
-      "#test": ["../src/test.ts"],
-      "#storybook": ["../src/storybook.ts"]
-    }
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true
   }
 }

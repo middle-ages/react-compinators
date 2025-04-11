@@ -1,5 +1,3 @@
-import '../src/storybook/css/index.css'
-
 const preview = {
   tags: ['autodocs'],
   parameters: {
@@ -8,6 +6,10 @@ const preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+
+    docs: {
+      codePanel: true,
     },
   },
 }

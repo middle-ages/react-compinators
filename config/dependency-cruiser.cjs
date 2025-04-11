@@ -202,13 +202,13 @@ module.exports = {
     /* Which modules not to follow further when encountered */
     doNotFollow: {
       /* path: an array of regular expressions in strings to match against */
-      path: ['node_modules'],
+      path: ['node_modules', 'dist'],
     },
 
     /* Which modules to exclude */
     exclude: {
       /* path: an array of regular expressions in strings to match against */
-      path: '^(node_modules|.dev|config|storybook-static)',
+      path: '^(node_modules|dist|config|storybook-static)',
     },
 
     /* Which modules to exclusively include (array of regular expressions in strings)

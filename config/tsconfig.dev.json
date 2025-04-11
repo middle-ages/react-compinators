@@ -1,0 +1,15 @@
+{
+  "display": "dev",
+  "extends": ["./tsconfig.base.json", "@tsconfig/node24/tsconfig.json"],
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "./vite.config.ts",
+    "./vite.storybook.config.ts",
+    "./vitest.config.ts",
+    "./eslint.config.ts",
+    "./dependency-cruiser.cjs",
+    "./../.storybook/main.ts"
+  ]
+}

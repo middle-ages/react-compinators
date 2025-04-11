@@ -1,9 +1,10 @@
 {
+  "display": "root",
   "files": [],
   "references": [
-    { "path": "./config/tsconfig.lib.json" },
-    { "path": "./config/tsconfig.node.json" },
-    { "path": "./config/tsconfig.tests.json" },
-    { "path": "./config/tsconfig.stories.json" }
+    {"path": "./config/tsconfig.lib.json"},
+    {"path": "./config/tsconfig.dev.json"},
+    {"path": "./config/tsconfig.tests.json"},
+    {"path": "./config/tsconfig.stories.json"}
   ]
 }

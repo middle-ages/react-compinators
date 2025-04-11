@@ -4,7 +4,7 @@
   "eslint.format.enable": true,
   "eslint.run": "onSave",
   "eslint.options": {
-    "overrideConfigFile": "config/eslint.config.js"
+    "overrideConfigFile": "config/eslint.config.ts"
   },
   "eslint.workingDirectories": [
     {
@@ -43,6 +43,7 @@
     "renameprop",
     "renameprops",
     "serviceworker",
+    "sonarjs",
     "storysource",
     "Symbola",
     "tailwindcss",
@@ -64,7 +65,6 @@
   ],
   "typescript.suggest.autoImports": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "accessibility.verbosity.inlineCompletions": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "markdownlint.config": {
     "MD033": false

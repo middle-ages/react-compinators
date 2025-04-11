@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {type FC} from 'react'
 import {assumeProps} from '../assume.js'
 import {cloneComponent} from '../util/react.js'
 import type {VariantDefs, VariantFc, VariantMap} from './types.js'

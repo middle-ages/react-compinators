@@ -2,6 +2,11 @@ import type {StorybookConfig} from '@storybook/react-vite'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
+  features: {
+    developmentModeForBuild: true,
+  },
+
   staticDirs: [
     {
       from: '../src/storybook/css',
@@ -13,9 +18,6 @@ const config: StorybookConfig = {
     },
   ],
 
-  docs: {
-    autodocs: 'tag',
-  },
   core: {
     disableTelemetry: true,
     disableWhatsNewNotifications: true,
@@ -26,6 +28,7 @@ const config: StorybookConfig = {
       },
     },
   },
+
   framework: {
     name: '@storybook/react-vite',
     options: {
@@ -40,11 +43,8 @@ const config: StorybookConfig = {
       tsconfigPath: 'tsconfig.json',
     },
   },
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-storysource',
-    '@storybook/addon-interactions',
-  ],
+
+  addons: ['@storybook/addon-docs'],
 }
 
 export default config

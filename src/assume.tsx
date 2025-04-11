@@ -1,5 +1,5 @@
 import {Array, pipe, Types} from 'effect'
-import {FC} from 'react'
+import {type FC} from 'react'
 import {displayNameFor, wrapDisplayName} from './displayName.js'
 import {String} from './util.js'
 
@@ -7,6 +7,32 @@ import {String} from './util.js'
  * Unfold the given component into a component per member of the given union,
  * where the given prop of each component is partially applied to a different
  * member of the union.
+ *
+ * This code:
+ *
+ * ```tsx
+ * const [GreenLabel, YellowLabel, RedLabel] = [
+ *   assumeProp(BaseLabel, 'color')('green'),
+ *   assumeProp(BaseLabel, 'color')('yellow'),
+ *   assumeProp(BaseLabel, 'color')('red'),
+ * ]
+ * ```
+ *
+ * Can be rewritten using `unfoldProp` as:
+ *
+ * ```tsx
+ * import {String} from 'effect'
+ * import {unfoldProp} from 'react-compinators'
+ *
+ * const [ GreenLabel, YellowLabel, RedLabel ] = unfoldProp(
+ *   BaseLabel,                  // Base component.
+ *   'color',                    // Prop that we will be setting.
+ * )(
+ *   ['green', 'yellow', 'red'], // Array of union members.
+ *   String.capitalize,          // Optional function will be used to compute
+ *                               // variant displayName from its `color` prop.
+ * )
+ * ```
  */
 export const unfoldProp =
   <Props extends object, Prop extends string & keyof Props>(
