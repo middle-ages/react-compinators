@@ -4,11 +4,11 @@ import * as react from 'eslint-plugin-react'
 import * as reactHooks from 'eslint-plugin-react-hooks'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 import * as globals from 'globals'
-import {globalIgnores} from 'eslint/config'
+import {defineConfig, globalIgnores} from 'eslint/config'
 import tslint from 'typescript-eslint'
 import sonarjs from 'eslint-plugin-sonarjs'
 
-const config = tslint.config(
+const config = defineConfig(
   globalIgnores([
     '../node_modules',
     '../dist',
