@@ -1,7 +1,7 @@
 import * as eslint from '@eslint/js'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import * as react from 'eslint-plugin-react'
-import * as reactHooks from 'eslint-plugin-react-hooks'
+import reactHooks from 'eslint-plugin-react-hooks'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 import * as globals from 'globals'
 import {defineConfig, globalIgnores} from 'eslint/config'
@@ -51,7 +51,6 @@ const config = defineConfig(
       'react-hooks': reactHooks,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/filename-case': 'off',
